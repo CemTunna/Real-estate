@@ -12,14 +12,12 @@ export const muiCache = createCache({
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#fff',
-      main: '#004594',
-      dark: '#898686',
+      light: '#EDF5E1',
+      main: '#5CDB95',
     },
     secondary: {
-      light: '#707D90',
-      main: '#6CC5F0',
-      dark: '#59f66e',
+      light: '#379683',
+      main: '#05386B',
     },
   },
   typography: {
