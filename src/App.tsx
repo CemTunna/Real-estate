@@ -1,6 +1,6 @@
 import React from 'react';
 import A from '@/components/A';
-
+import { Theme } from '@/theme/Theme';
 function App() {
   return (
     <div className='App'>
@@ -9,4 +9,4 @@ function App() {
   );
 }
 
-export default App;
+export default Theme(App);
