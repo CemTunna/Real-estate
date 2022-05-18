@@ -14,6 +14,7 @@ function App() {
     <Fragment>
       <Router>
         <Layout>
+          <Navbar />
           <Routes>
             <Route path='/' element={<Explore />} />
             <Route path='/offers' element={<Offers />} />
@@ -22,7 +23,6 @@ function App() {
             <Route path='/signUp' element={<SignUp />} />
             <Route path='/forgotPassword' element={<ForgotPassword />} />
           </Routes>
-          <Navbar />
         </Layout>
       </Router>
     </Fragment>

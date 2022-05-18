@@ -1,96 +1,82 @@
 import React from 'react';
 import { makeStyles } from 'tss-react/mui';
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { Button, Grid, List, ListItem } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ExploreIcon from '@mui/icons-material/Explore';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import HeaderTitle from './HeaderTitle';
+
 const useStyles = makeStyles()((theme) => ({
   navbar: {
-    border: '1px solid red',
-  },
-  wrapper: {
-    backgroundColor: theme.palette.secondary.light,
     display: 'flex',
     justifyContent: 'space-between',
-    maxWidth: '1100px',
-    margin: '0 auto',
-    borderRadius: '5px',
-    padding: '1.5rem',
+    padding: '1rem',
+    [theme.breakpoints.down('lg')]: {
+      flexDirection: 'column',
+    },
   },
   icon: {
-    color: theme.palette.secondary.main,
-    fontSize: '2rem',
+    marginRight: '0.2rem',
+  },
+  list: {
+    display: 'flex',
+    justifyContent: 'space-around',
+
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    [theme.breakpoints.down('lg')]: {
+      marginTop: '1rem',
+    },
+  },
+  btn: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.primary.light,
+    letterSpacing: '0.5px',
+    border: '1px solid transparent',
+    width: '10rem',
+    '&:hover': {
+      borderColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.main,
+    },
+    [theme.breakpoints.down('sm')]: {
+      margin: '0 auto',
+    },
   },
 }));
 const Navbar = () => {
   const { classes } = useStyles();
-  const [value, setValue] = React.useState('');
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
-    <footer className={classes.navbar}>
-      <BottomNavigation
-        className={classes.wrapper}
-        value={value}
-        onChange={handleChange}
-      >
-        <BottomNavigationAction
-          label='Offers'
-          value='offers'
-          icon={<LocalOfferIcon className={classes.icon} />}
-        />
-        <BottomNavigationAction
-          label='Explore'
-          value='explore'
-          icon={<ExploreIcon className={classes.icon} />}
-        />
-
-        <BottomNavigationAction
-          label='Profil'
-          value='profil'
-          icon={<PersonOutlineIcon className={classes.icon} />}
-        />
-      </BottomNavigation>
-    </footer>
+    <header className={classes.navbar}>
+      <Grid>
+        <HeaderTitle />
+      </Grid>
+      <List className={classes.list}>
+        <ListItem>
+          <Button className={classes.btn} onClick={() => navigate('/offers')}>
+            <LocalOfferIcon className={classes.icon} />
+            Offers
+          </Button>
+        </ListItem>
+        <ListItem>
+          <Button className={classes.btn} onClick={() => navigate('/')}>
+            <ExploreIcon className={classes.icon} />
+            Explorer
+          </Button>
+        </ListItem>
+        <ListItem>
+          <Button className={classes.btn} onClick={() => navigate('/profile')}>
+            <PersonOutlineIcon className={classes.icon} />
+            Profile
+          </Button>
+        </ListItem>
+      </List>
+    </header>
   );
 };
 
 export default Navbar;
-// import * as React from 'react';
-// import BottomNavigation from '@mui/material/BottomNavigation';
-// import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-// import FolderIcon from '@mui/icons-material/Folder';
-// import RestoreIcon from '@mui/icons-material/Restore';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import LocationOnIcon from '@mui/icons-material/LocationOn';
-
-// export default function LabelBottomNavigation() {
-//   const [value, setValue] = React.useState('recents');
-
-//   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-//     setValue(newValue);
-//   };
-
-//   return (
-//     <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
-//       <BottomNavigationAction
-//         label="Recents"
-//         value="recents"
-//         icon={<RestoreIcon />}
-//       />
-//       <BottomNavigationAction
-//         label="Favorites"
-//         value="favorites"
-//         icon={<FavoriteIcon />}
-//       />
-//       <BottomNavigationAction
-//         label="Nearby"
-//         value="nearby"
-//         icon={<LocationOnIcon />}
-//       />
-//       <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
-//     </BottomNavigation>
-//   );
-// }
