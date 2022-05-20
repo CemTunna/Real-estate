@@ -8,7 +8,6 @@ const useStyles = makeStyles()((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     height: '100vh',
     backgroundColor: theme.palette.primary.main,
   },

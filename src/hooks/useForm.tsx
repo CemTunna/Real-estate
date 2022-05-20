@@ -6,8 +6,9 @@ const useForm = () => {
     password: '',
     name: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
+
   const { email, password, name } = formData;
-  console.log('form', formData);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -17,7 +18,7 @@ const useForm = () => {
   if (Validation({ email, password, name })) {
     console.log('im okay');
   }
-  return { email, password, name, onChange };
+  return { email, password, name, onChange, showPassword, setShowPassword };
 };
 
 export default useForm;

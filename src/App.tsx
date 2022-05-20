@@ -9,6 +9,7 @@ import Offers from '@/pages/Offers';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Navbar from '@/components/Navbar';
 import Layout from '@/components/Layout';
+import { Grid } from '@mui/material';
 function App() {
   return (
     <Fragment>
