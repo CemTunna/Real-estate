@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react';
+import Validation from '@/helpers/Validation';
+import React, { useState } from 'react';
 const useForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -13,7 +14,9 @@ const useForm = () => {
       [e.target.id]: e.target.value,
     }));
   };
-
+  if (Validation({ email, password, name })) {
+    console.log('im okay');
+  }
   return { email, password, name, onChange };
 };
 
