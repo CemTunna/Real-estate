@@ -9,6 +9,7 @@ import Offers from '@/pages/Offers';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 import Navbar from '@/components/Navbar';
 import Layout from '@/components/Layout';
+import './App.css';
 function App() {
   return (
     <Fragment>

@@ -38,13 +38,15 @@ const useStyles = makeStyles()((theme) => ({
     overflow: 'hidden',
     padding: '0.5rem',
     width: '40rem',
+    '&:-internal-autofill-selected': {
+      backgroundColor: 'red',
+    },
   },
   link: {
     marginTop: '1rem',
     color: theme.palette.secondary.main,
     transition: 'all .2s ease-out',
     letterSpacing: '0.5px',
-
     '&:active': {
       color: theme.palette.primary.light,
     },
@@ -61,6 +63,9 @@ const useStyles = makeStyles()((theme) => ({
     '&:hover': {
       color: theme.palette.secondary.main,
     },
+  },
+  asd: {
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 const SignUp = () => {
@@ -87,9 +92,11 @@ const SignUp = () => {
 
         <form className={classes.form} onSubmit={onSubmit}>
           <TextField
+            autoFocus
             variant='standard'
             InputProps={{
               disableUnderline: true,
+              className: classes.asd,
             }}
             className={classes.input}
             onChange={onChange}

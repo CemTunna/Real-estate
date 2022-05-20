@@ -1,0 +1,4 @@
+.MuiInput-input:-webkit-autofill {
+  transition-delay: 9999s;
+  transition-property: background-color, color;
+}
