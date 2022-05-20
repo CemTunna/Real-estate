@@ -1,8 +1,6 @@
 import Validation from '@/helpers/Validation';
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import Register from '@/helpers/Register';
 
 const useForm = () => {
