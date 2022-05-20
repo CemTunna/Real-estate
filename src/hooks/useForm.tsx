@@ -7,6 +7,14 @@ import {
 import { app } from '@/firebase';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/firebase';
+interface DataCopy {
+  email: string;
+  password?: string;
+  name: string;
+  timestamp?: any;
+}
 const useForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -23,6 +31,7 @@ const useForm = () => {
     }));
   };
   const navigate = useNavigate();
+
   const onSubmit = async (e?: any) => {
     e.preventDefault();
     try {
@@ -37,6 +46,10 @@ const useForm = () => {
         updateProfile(auth.currentUser!, {
           displayName: name,
         });
+        const dataCopy: DataCopy = { ...formData };
+        delete dataCopy.password;
+        dataCopy.timestamp = serverTimestamp();
+        await setDoc(doc(db, 'users', user.uid), dataCopy);
         navigate('/');
       }
     } catch (error) {

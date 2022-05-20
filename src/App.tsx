@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import { Theme } from '@/theme/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Explore from '@/pages/Explore';
-import SignIn from '@/pages/SignIn';
-import SignUp from '@/pages/SignUp';
+import SignIn from '@/pages/auth/SignIn';
+import SignUp from '@/pages/auth/SignUp';
 import Profile from '@/pages/Profile';
 import Offers from '@/pages/Offers';
-import ForgotPassword from '@/pages/ForgotPassword';
+import ForgotPassword from '@/pages/auth/ForgotPassword';
 import Navbar from '@/components/Navbar';
 import Layout from '@/components/Layout';
 function App() {
