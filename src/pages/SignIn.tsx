@@ -3,20 +3,10 @@ import React, { Fragment, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import useForm from '@/hooks/useForm';
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const { email, password } = formData;
-  const navigate = useNavigate();
-  const onChange = (e: React.ChangeEventHandler<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.id]: e.target.value,
-    }));
-  };
+  const { email, password, onChange } = useForm();
   return (
     <Fragment>
       <Grid>
