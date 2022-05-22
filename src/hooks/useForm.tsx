@@ -23,11 +23,9 @@ const useForm = () => {
     if (email.length > 0 && password.length > 0 && name.length > 0) {
       Register({ email, password, name, formData });
       navigate('/');
-      console.log('im registered');
     }
     if (email.length > 0 && password.length > 0 && name.length === 0) {
       Login({ email, password, navigate });
-      console.log('im logged in');
     }
   };
 
