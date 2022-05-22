@@ -65,7 +65,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const SignIn = () => {
   const { classes } = useStyles();
-  const { email, password, onChange, showPassword, setShowPassword } =
+  const { email, password, onChange, showPassword, setShowPassword, onSubmit } =
     useForm();
   return (
     <Fragment>
@@ -75,7 +75,7 @@ const SignIn = () => {
             Welcome Back
           </Typography>
         </header>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={onSubmit}>
           <TextField
             variant='standard'
             InputProps={{
@@ -114,7 +114,7 @@ const SignIn = () => {
             Forgot Password
           </Link>
           <Grid style={{ display: 'flex' }}>
-            <Button className={classes.btn}>
+            <Button className={classes.btn} type='submit'>
               Sign In
               <ArrowForwardIosIcon />
             </Button>

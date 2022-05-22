@@ -1,8 +1,7 @@
-import Validation from '@/helpers/Validation';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Register from '@/helpers/Register';
-
+import Login from '@/helpers/Login';
+import { useNavigate } from 'react-router-dom';
 const useForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -19,16 +18,16 @@ const useForm = () => {
     }));
   };
 
-  const onSubmit = async (e?: any) => {
+  const onSubmit = (e?: any) => {
     e.preventDefault();
-
-    try {
-      if (Validation({ email, password, name })) {
-        Register({ email, password, name, formData });
-        navigate('/');
-      }
-    } catch (error) {
-      console.log(error);
+    if (email.length > 0 && password.length > 0 && name.length > 0) {
+      Register({ email, password, name, formData });
+      navigate('/');
+      console.log('im registered');
+    }
+    if (email.length > 0 && password.length > 0 && name.length === 0) {
+      Login({ email, password, navigate });
+      console.log('im logged in');
     }
   };
 

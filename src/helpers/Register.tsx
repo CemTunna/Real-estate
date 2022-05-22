@@ -19,20 +19,24 @@ interface DataCopy {
   timestamp?: any;
 }
 const Register = async ({ email, password, name, formData }: Props) => {
-  const auth = getAuth(app);
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-  const user = userCredential.user;
-  updateProfile(auth.currentUser!, {
-    displayName: name,
-  });
-  const dataCopy: DataCopy = { ...formData };
-  delete dataCopy.password;
-  dataCopy.timestamp = serverTimestamp();
-  await setDoc(doc(db, 'users', user.uid), dataCopy);
+  try {
+    const auth = getAuth(app);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    updateProfile(auth.currentUser!, {
+      displayName: name,
+    });
+    const dataCopy: DataCopy = { ...formData };
+    delete dataCopy.password;
+    dataCopy.timestamp = serverTimestamp();
+    await setDoc(doc(db, 'users', user.uid), dataCopy);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default Register;
