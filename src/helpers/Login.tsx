@@ -6,6 +6,8 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, app } from '@/firebase';
+import { toast } from 'react-toastify';
+
 interface Props {
   email: string;
   password: string;
@@ -23,7 +25,7 @@ const Login = async ({ email, password, navigate }: Props) => {
       navigate('/');
     }
   } catch (error) {
-    console.log(error);
+    toast.error('Wrong Credentials');
   }
 };
 

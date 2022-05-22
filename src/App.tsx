@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Theme } from '@/theme/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Explore from '@/pages/Explore';
@@ -26,6 +28,7 @@ function App() {
           </Routes>
         </Layout>
       </Router>
+      <ToastContainer autoClose={2000} />
     </Fragment>
   );
 }
