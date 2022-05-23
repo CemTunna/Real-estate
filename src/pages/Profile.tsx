@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import useUpdate from '@/hooks/useUpdate';
@@ -152,4 +153,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default React.memo(Profile);

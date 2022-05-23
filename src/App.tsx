@@ -36,4 +36,4 @@ function App() {
   );
 }
 
-export default Theme(App);
+export default Theme(React.memo(App));
