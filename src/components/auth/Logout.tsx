@@ -1,7 +1,7 @@
-import currentUser from '@/helpers/currentUser';
+import firebaseAuth from '@/helpers/firebaseAuth';
 
 const Logout = () => {
-  const { auth } = currentUser();
+  const { auth } = firebaseAuth();
   auth.signOut();
 };
 

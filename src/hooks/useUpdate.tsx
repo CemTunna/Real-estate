@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import Register from '@/components/auth/Register';
-import Login from '@/components/auth/Login';
 import { useNavigate } from 'react-router-dom';
-import currentUser from '@/helpers/currentUser';
 import Logout from '@/components/auth/Logout';
 import UpdateProfile from '@/components/auth/UpdateProfile';
+import firebaseAuth from '@/helpers/firebaseAuth';
 
 const useUpdate = () => {
-  const { currentuser } = currentUser();
+  const { currentuser } = firebaseAuth();
   const navigate = useNavigate();
   const [data, setData] = useState({
     name: currentuser.displayName,
