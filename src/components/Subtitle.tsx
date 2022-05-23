@@ -2,6 +2,9 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 
+interface Props {
+  children: React.ReactNode;
+}
 const useStyles = makeStyles()((theme) => ({
   title: {
     color: theme.palette.primary.light,
@@ -9,14 +12,15 @@ const useStyles = makeStyles()((theme) => ({
     fontWeight: 'bold',
   },
 }));
-const HeaderTitle = () => {
+
+const Subtitle = ({ children }: Props) => {
   const { classes } = useStyles();
 
   return (
-    <Typography variant='h2' className={classes.title}>
-      B.Real-Estate
+    <Typography variant='h3' className={classes.title}>
+      {children}
     </Typography>
   );
 };
 
-export default HeaderTitle;
+export default Subtitle;

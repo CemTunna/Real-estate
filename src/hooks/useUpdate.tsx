@@ -22,7 +22,7 @@ const useUpdate = () => {
     }));
   };
 
-  const onSubmit = (e?: any) => {
+  const onSubmit = () => {
     UpdateProfile({ currentuser, name });
   };
   const handleLogout = () => {

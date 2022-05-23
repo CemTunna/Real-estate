@@ -13,16 +13,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import { makeStyles } from 'tss-react/mui';
+import Subtitle from '@/components/Subtitle';
 const useStyles = makeStyles()((theme) => ({
   container: {
     padding: '1rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-  title: {
-    color: theme.palette.primary.light,
-    letterSpacing: '0.5px',
   },
   form: {
     padding: '1rem',
@@ -72,9 +69,7 @@ const SignIn = () => {
     <Fragment>
       <Grid className={classes.container}>
         <header>
-          <Typography variant='h3' className={classes.title}>
-            Welcome Back
-          </Typography>
+          <Subtitle>Welcome Back</Subtitle>
         </header>
         <form className={classes.form} onSubmit={onSubmit}>
           <TextField
