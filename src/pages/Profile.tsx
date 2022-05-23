@@ -1,30 +1,16 @@
-import React, { useState } from 'react';
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import Logout from '@/components/auth/Logout';
-import UpdateProfile from '@/components/auth/UpdateProfile';
-import useForm from '@/hooks/useForm';
-import currentUser from '@/helpers/currentUser';
-const Profile = () => {
-  const { currentuser } = currentUser();
-  const navigate = useNavigate();
-  const [data, setData] = useState({
-    name: currentuser.displayName,
-    email: currentuser.email,
-  });
-  const { name, email } = data;
-  const [changedDetails, setChangedDetails] = useState(false);
-  const handleLogout = () => {
-    Logout();
-    navigate('/');
-  };
-  const onSubmit = async () => {
-    UpdateProfile({ currentuser, name });
-  };
-  const onChange = (e: any) => {
-    setData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
-  };
 
+import useUpdate from '@/hooks/useUpdate';
+const Profile = () => {
+  const {
+    handleLogout,
+    name,
+    email,
+    onSubmit,
+    onChange,
+    changedDetails,
+    setChangedDetails,
+  } = useUpdate();
   return (
     <Grid>
       <header>
@@ -40,7 +26,7 @@ const Profile = () => {
             <Typography
               onClick={() => {
                 changedDetails && onSubmit();
-                setChangedDetails((prevState) => !prevState);
+                setChangedDetails((prevState: boolean) => !prevState);
               }}
             >
               {changedDetails ? 'done' : 'change'}
