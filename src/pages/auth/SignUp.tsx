@@ -15,20 +15,11 @@ import BRealButton from '@/components/BRealButton';
 import Container from '@/components/Container';
 import Subtitle from '@/components/Subtitle';
 import BRealForm from '@/components/BRealForm';
+import BRealInput from '@/components/BRealInput';
 
 const useStyles = makeStyles()((theme) => ({
   input: {
-    color: theme.palette.primary.dark,
-    letterSpacing: '0.5px',
-    marginTop: '1rem',
-    border: '2px solid #05386B ',
-    borderRadius: '3px',
-    overflow: 'hidden',
-    padding: '0.5rem',
     width: '40rem',
-    '&:-internal-autofill-selected': {
-      backgroundColor: 'red',
-    },
   },
   link: {
     marginTop: '1rem',
@@ -64,12 +55,8 @@ const SignUp = () => {
           <Subtitle>Welcome back</Subtitle>
         </header>
         <BRealForm onSubmit={onSubmit}>
-          <TextField
-            autoFocus
-            variant='standard'
-            InputProps={{
-              disableUnderline: true,
-            }}
+          <BRealInput
+            autoFocus={true}
             className={classes.input}
             onChange={onChange}
             placeholder='Name'
@@ -77,11 +64,7 @@ const SignUp = () => {
             value={name}
             type='text'
           />
-          <TextField
-            variant='standard'
-            InputProps={{
-              disableUnderline: true,
-            }}
+          <BRealInput
             className={classes.input}
             onChange={onChange}
             placeholder='Email'
@@ -89,16 +72,13 @@ const SignUp = () => {
             value={email}
             type='email'
           />
-          <TextField
-            variant='standard'
-            className={classes.input}
+          <BRealInput
             placeholder='Password'
             id='password'
             value={password}
             onChange={onChange}
             type={showPassword ? 'text' : 'password'}
-            InputProps={{
-              disableUnderline: true,
+            propss={{
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton

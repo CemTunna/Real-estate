@@ -15,21 +15,10 @@ import { makeStyles } from 'tss-react/mui';
 import Subtitle from '@/components/Subtitle';
 import BRealButton from '@/components/BRealButton';
 import BRealForm from '@/components/BRealForm';
+import BRealInput from '@/components/BRealInput';
+import Container from '@/components/Container';
 const useStyles = makeStyles()((theme) => ({
-  container: {
-    padding: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   input: {
-    color: theme.palette.primary.dark,
-    letterSpacing: '0.5px',
-    marginTop: '1rem',
-    border: '2px solid #05386B ',
-    borderRadius: '3px',
-    overflow: 'hidden',
-    padding: '0.5rem',
     width: '40rem',
   },
   link: {
@@ -37,7 +26,6 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.secondary.main,
     transition: 'all .2s ease-out',
     letterSpacing: '0.5px',
-
     '&:active': {
       color: theme.palette.primary.light,
     },
@@ -54,33 +42,29 @@ const SignIn = () => {
     useForm();
   return (
     <Fragment>
-      <Grid className={classes.container}>
+      <Container>
         <header>
           <Subtitle>Welcome Back</Subtitle>
         </header>
         <BRealForm onSubmit={onSubmit}>
-          <TextField
-            variant='standard'
-            InputProps={{
-              disableUnderline: true,
-            }}
-            className={classes.input}
-            onChange={onChange}
-            placeholder='Email'
+          <BRealInput
+            autoFocus={true}
             id='email'
+            onChange={onChange}
             value={email}
+            placeholder='Email'
             type='email'
+            className={classes.input}
           />
-          <TextField
-            variant='standard'
+
+          <BRealInput
             className={classes.input}
             placeholder='Password'
             id='password'
             value={password}
             onChange={onChange}
             type={showPassword ? 'text' : 'password'}
-            InputProps={{
-              disableUnderline: true,
+            propss={{
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton
@@ -105,7 +89,7 @@ const SignIn = () => {
         </BRealForm>
         {/* google oath */}
         <Link to='/signUp'>Sign Up</Link>
-      </Grid>
+      </Container>
     </Fragment>
   );
 };
