@@ -9,6 +9,7 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    padding: '1rem',
   },
 }));
 const Container = ({ children }: Props) => {

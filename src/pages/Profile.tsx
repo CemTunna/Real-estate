@@ -8,32 +8,21 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import DoneIcon from '@mui/icons-material/Done';
 import { IconButton } from '@mui/material';
 import classNames from 'classnames';
+import Container from '@/components/Container';
+import BRealButton from '@/components/BRealButton';
+import BRealForm from '@/components/BRealForm';
 const useStyles = makeStyles()((theme) => ({
-  constainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  header: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '1rem',
-  },
-  subtitle: {
+  title: {
     color: theme.palette.secondary.main,
     letterSpacing: '0.5px',
   },
   btn: {
-    color: theme.palette.primary.light,
-    letterSpacing: '0.5px',
-    border: '1px solid ',
-    borderColor: theme.palette.secondary.main,
-    backgroundColor: theme.palette.secondary.main,
-    textTransform: 'capitalize',
     marginTop: '1rem',
-    '&:hover': {
-      color: theme.palette.secondary.main,
-    },
+  },
+  mainStyle: {
+    width: '30rem',
+    display: 'flex',
+    flexDirection: 'column',
   },
   bodyContainer: {
     display: 'flex',
@@ -52,10 +41,7 @@ const useStyles = makeStyles()((theme) => ({
   footerContiner: {
     marginTop: '1rem',
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
+
   input: {
     letterSpacing: '0.5px',
     marginBottom: '1rem',
@@ -88,17 +74,14 @@ const Profile = () => {
     setChangedDetails,
   } = useUpdate();
   return (
-    <Grid className={classes.constainer}>
-      <header className={classes.header}>
+    <Container>
+      <header>
         <Subtitle>My Profile</Subtitle>
-        <Button className={classes.btn} onClick={handleLogout}>
-          Log out <LogoutIcon style={{ marginLeft: '10px' }} />
-        </Button>
       </header>
-      <main>
+      <main className={classes.mainStyle}>
         <Grid>
           <Grid className={classes.bodyContainer}>
-            <Typography variant='h4' className={classes.subtitle}>
+            <Typography variant='h4' className={classes.title}>
               Account Details
             </Typography>
             <IconButton
@@ -113,7 +96,7 @@ const Profile = () => {
           </Grid>
         </Grid>
         <Grid className={classes.footerContiner}>
-          <form className={classes.form}>
+          <BRealForm>
             <TextField
               InputProps={{
                 disableUnderline: true,
@@ -146,10 +129,13 @@ const Profile = () => {
               value={email}
               onChange={onChange}
             />
-          </form>
+          </BRealForm>
         </Grid>
+        <BRealButton className={classes.btn} onClick={handleLogout}>
+          Log out <LogoutIcon style={{ marginLeft: '10px' }} />
+        </BRealButton>
       </main>
-    </Grid>
+    </Container>
   );
 };
 

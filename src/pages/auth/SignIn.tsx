@@ -1,5 +1,4 @@
 import {
-  Button,
   Grid,
   IconButton,
   Typography,
@@ -14,17 +13,14 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import { makeStyles } from 'tss-react/mui';
 import Subtitle from '@/components/Subtitle';
+import BRealButton from '@/components/BRealButton';
+import BRealForm from '@/components/BRealForm';
 const useStyles = makeStyles()((theme) => ({
   container: {
     padding: '1rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-  form: {
-    padding: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
   },
   input: {
     color: theme.palette.primary.dark,
@@ -47,17 +43,8 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   btn: {
-    color: theme.palette.primary.light,
-    letterSpacing: '0.5px',
-    border: '1px solid ',
-    borderColor: theme.palette.secondary.main,
-    backgroundColor: theme.palette.secondary.main,
-    textTransform: 'capitalize',
     flex: 1,
     marginTop: '1rem',
-    '&:hover': {
-      color: theme.palette.secondary.main,
-    },
   },
 }));
 
@@ -71,7 +58,7 @@ const SignIn = () => {
         <header>
           <Subtitle>Welcome Back</Subtitle>
         </header>
-        <form className={classes.form} onSubmit={onSubmit}>
+        <BRealForm onSubmit={onSubmit}>
           <TextField
             variant='standard'
             InputProps={{
@@ -110,12 +97,12 @@ const SignIn = () => {
             Forgot Password
           </Link>
           <Grid style={{ display: 'flex' }}>
-            <Button className={classes.btn} type='submit'>
+            <BRealButton className={classes.btn} type='submit'>
               Sign In
               <ArrowForwardIosIcon />
-            </Button>
+            </BRealButton>
           </Grid>
-        </form>
+        </BRealForm>
         {/* google oath */}
         <Link to='/signUp'>Sign Up</Link>
       </Grid>

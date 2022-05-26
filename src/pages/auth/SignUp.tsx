@@ -1,5 +1,4 @@
 import {
-  Button,
   Grid,
   IconButton,
   InputAdornment,
@@ -12,23 +11,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import { makeStyles } from 'tss-react/mui';
+import BRealButton from '@/components/BRealButton';
+import Container from '@/components/Container';
+import Subtitle from '@/components/Subtitle';
+import BRealForm from '@/components/BRealForm';
 
 const useStyles = makeStyles()((theme) => ({
-  container: {
-    padding: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  title: {
-    color: theme.palette.primary.light,
-    letterSpacing: '0.5px',
-  },
-  form: {
-    padding: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
-  },
   input: {
     color: theme.palette.primary.dark,
     letterSpacing: '0.5px',
@@ -52,20 +40,8 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   btn: {
-    color: theme.palette.primary.light,
-    letterSpacing: '0.5px',
-    border: '1px solid ',
-    borderColor: theme.palette.secondary.main,
-    backgroundColor: theme.palette.secondary.main,
-    textTransform: 'capitalize',
     flex: 1,
     marginTop: '1rem',
-    '&:hover': {
-      color: theme.palette.secondary.main,
-    },
-  },
-  asd: {
-    backgroundColor: theme.palette.primary.main,
   },
 }));
 const SignUp = () => {
@@ -83,20 +59,16 @@ const SignUp = () => {
 
   return (
     <Fragment>
-      <Grid className={classes.container}>
+      <Container>
         <header>
-          <Typography variant='h3' className={classes.title}>
-            Welcome back
-          </Typography>
+          <Subtitle>Welcome back</Subtitle>
         </header>
-
-        <form className={classes.form} onSubmit={onSubmit}>
+        <BRealForm onSubmit={onSubmit}>
           <TextField
             autoFocus
             variant='standard'
             InputProps={{
               disableUnderline: true,
-              className: classes.asd,
             }}
             className={classes.input}
             onChange={onChange}
@@ -143,15 +115,15 @@ const SignUp = () => {
             Forgot Password
           </Link>
           <Grid style={{ display: 'flex' }}>
-            <Button className={classes.btn} type='submit'>
+            <BRealButton className={classes.btn} type='submit'>
               Sign Up
               <ArrowForwardIosIcon />
-            </Button>
+            </BRealButton>
           </Grid>
-        </form>
+        </BRealForm>
         {/* google oath */}
         <Link to='/signIn'>Sign In</Link>
-      </Grid>
+      </Container>
     </Fragment>
   );
 };
