@@ -26,7 +26,7 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.secondary.main,
     transition: 'all .2s ease-out',
     letterSpacing: '0.5px',
-    '&:active': {
+    '&:hover': {
       color: theme.palette.primary.light,
     },
   },
@@ -78,7 +78,7 @@ const SignIn = () => {
           />
 
           <Link to='/forgotPassword' className={classes.link}>
-            Forgot Password
+            Can't Sign In ?
           </Link>
           <Grid style={{ display: 'flex' }}>
             <BRealButton className={classes.btn} type='submit'>

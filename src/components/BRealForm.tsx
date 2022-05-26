@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 interface Props {
   children: React.ReactNode;
-  onSubmit?: () => void;
+  onSubmit?: (e: any) => void;
 }
 const useStyles = makeStyles()((theme) => ({
   form: {

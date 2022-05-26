@@ -26,7 +26,7 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.secondary.main,
     transition: 'all .2s ease-out',
     letterSpacing: '0.5px',
-    '&:active': {
+    '&:hover': {
       color: theme.palette.primary.light,
     },
   },
