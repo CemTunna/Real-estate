@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 const { auth } = firebaseAuth();
 
 const forgotPassword = async (email: string) => {
-  await sendPasswordResetEmail(auth, email);
-  toast.success('Email was sent');
   try {
+    await sendPasswordResetEmail(auth, email);
+    toast.success('Email was sent');
   } catch (error) {
     toast.error('Something went wrong');
   }

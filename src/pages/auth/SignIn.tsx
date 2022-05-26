@@ -17,6 +17,7 @@ import BRealButton from '@/components/BRealButton';
 import BRealForm from '@/components/BRealForm';
 import BRealInput from '@/components/BRealInput';
 import Container from '@/components/Container';
+import OAuth from '@/components/oauth/OAuth';
 const useStyles = makeStyles()((theme) => ({
   input: {
     width: '40rem',
@@ -87,7 +88,7 @@ const SignIn = () => {
             </BRealButton>
           </Grid>
         </BRealForm>
-        {/* google oath */}
+        <OAuth />
         <Link to='/signUp'>Sign Up</Link>
       </Container>
     </Fragment>

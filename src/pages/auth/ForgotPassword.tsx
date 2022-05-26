@@ -7,7 +7,7 @@ import BRealInput from '@/components/BRealInput';
 import { makeStyles } from 'tss-react/mui';
 import BRealButton from '@/components/BRealButton';
 import useForm from '@/hooks/useForm';
-
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 const useStyles = makeStyles()((theme) => ({
   input: {
     width: '40rem',
@@ -48,7 +48,8 @@ const ForgotPassword = () => {
 
           <Grid style={{ display: 'flex', flexDirection: 'column' }}>
             <BRealButton type='submit' className={classes.btn}>
-              Send Reset Link
+              Send Reset Link{' '}
+              <ArrowRightAltIcon style={{ marginLeft: '10px' }} />
             </BRealButton>
           </Grid>
         </BRealForm>
