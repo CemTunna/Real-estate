@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Register from '@/components/auth/Register';
-import Login from '@/components/auth/Login';
+import Register from '@/helpers/auth/register';
+import login from '@/helpers/auth/login';
 import { useNavigate } from 'react-router-dom';
 import forgotPassword from '@/helpers/forgotPassword';
 interface Form {
@@ -36,7 +36,7 @@ const useForm = () => {
     }
     // login
     if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
-      email && password && Login({ email, password, navigate });
+      email && password && login({ email, password, navigate });
     }
     // forgot password
     if (email!.length > 0 && name!.length === 0 && password!.length === 0) {

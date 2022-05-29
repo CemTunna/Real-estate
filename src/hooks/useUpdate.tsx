@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logout from '@/components/auth/Logout';
-import UpdateProfile from '@/components/auth/UpdateProfile';
+import logout from '@/helpers/auth/logout';
+import updateProfile from '@/helpers/auth/updateProfile';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import useForm from './useForm';
 
@@ -22,10 +22,10 @@ const useUpdate = () => {
   };
 
   const onSubmit = () => {
-    name && UpdateProfile({ currentuser, name });
+    name && updateProfile({ currentuser, name });
   };
   const handleLogout = () => {
-    Logout();
+    logout();
     navigate('/');
   };
   return {
