@@ -2,3 +2,6 @@
   transition-delay: 9999s;
   transition-property: background-color, color;
 }
+img {
+  object-fit: cover;
+}
