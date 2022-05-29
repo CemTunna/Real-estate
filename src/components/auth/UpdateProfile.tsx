@@ -4,7 +4,7 @@ import { updateDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 interface Props {
-  name: string | null;
+  name: string;
   currentuser: any;
 }
 const UpdateProfile = async ({ currentuser, name }: Props) => {

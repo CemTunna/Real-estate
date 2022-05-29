@@ -3,8 +3,13 @@ import Register from '@/components/auth/Register';
 import Login from '@/components/auth/Login';
 import { useNavigate } from 'react-router-dom';
 import forgotPassword from '@/helpers/forgotPassword';
+interface Form {
+  email?: string;
+  password?: string;
+  name?: string;
+}
 const useForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Form>({
     email: '',
     password: '',
     name: '',
@@ -22,17 +27,20 @@ const useForm = () => {
   const onSubmit = (e?: any) => {
     e.preventDefault();
     // register
-    if (email.length > 0 && password.length > 0 && name.length > 0) {
-      Register({ email, password, name, formData });
+    if (email!.length > 0 && password!.length > 0 && name!.length > 0) {
+      email &&
+        password &&
+        name &&
+        Register({ email, password, name, formData });
       navigate('/');
     }
     // login
-    if (email.length > 0 && password.length > 0 && name.length === 0) {
-      Login({ email, password, navigate });
+    if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
+      email && password && Login({ email, password, navigate });
     }
     // forgot password
-    if (email.length > 0 && name.length === 0 && password.length === 0) {
-      forgotPassword(formData.email);
+    if (email!.length > 0 && name!.length === 0 && password!.length === 0) {
+      forgotPassword(formData.email!);
     }
   };
 
@@ -44,6 +52,7 @@ const useForm = () => {
     onChange,
     showPassword,
     setShowPassword,
+    setFormData,
   };
 };
 

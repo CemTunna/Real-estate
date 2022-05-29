@@ -41,7 +41,7 @@ const ForgotPassword = () => {
             placeholder='Email'
             type='email'
             id='email'
-            value={email}
+            value={email!}
             onChange={onChange}
             className={classes.input}
           />

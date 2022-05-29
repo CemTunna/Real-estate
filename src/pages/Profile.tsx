@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import useUpdate from '@/hooks/useUpdate';
 import Subtitle from '@/components/Subtitle';
@@ -11,7 +11,8 @@ import classNames from 'classnames';
 import Container from '@/components/Container';
 import BRealButton from '@/components/BRealButton';
 import BRealForm from '@/components/BRealForm';
-import BRealInput from '@/components/BRealInput';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles()((theme) => ({
   title: {
     color: theme.palette.secondary.main,
@@ -24,6 +25,7 @@ const useStyles = makeStyles()((theme) => ({
     width: '30rem',
     display: 'flex',
     flexDirection: 'column',
+    border: '1px solid red',
   },
   bodyContainer: {
     display: 'flex',
@@ -55,9 +57,25 @@ const useStyles = makeStyles()((theme) => ({
   },
   inputActive: {
     borderColor: theme.palette.secondary.main,
-
     '&:hover': {
       borderColor: theme.palette.primary.light,
+    },
+  },
+  link: {
+    textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '1rem',
+    color: theme.palette.secondary.main,
+    textTransform: 'capitalize',
+    fontWeight: theme.typography.fontWeightBold,
+    border: '2px solid transparent',
+    transition: 'all .5s ease-out',
+    padding: '0.5rem',
+    '&:hover': {
+      border: '2px solid #333',
+      borderRadius: '10px',
+      fontSize: '20px',
     },
   },
 }));
@@ -132,6 +150,10 @@ const Profile = () => {
             />
           </BRealForm>
         </Grid>
+        <Link to='/createListing' className={classes.link}>
+          List your home or rent one!
+          <ChevronRightIcon style={{ marginLeft: '10px' }} />
+        </Link>
         <BRealButton className={classes.btn} onClick={handleLogout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </BRealButton>

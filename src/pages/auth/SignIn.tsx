@@ -52,7 +52,7 @@ const SignIn = () => {
             autoFocus={true}
             id='email'
             onChange={onChange}
-            value={email}
+            value={email!}
             placeholder='Email'
             type='email'
             className={classes.input}
@@ -62,7 +62,7 @@ const SignIn = () => {
             className={classes.input}
             placeholder='Password'
             id='password'
-            value={password}
+            value={password!}
             onChange={onChange}
             type={showPassword ? 'text' : 'password'}
             propss={{

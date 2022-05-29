@@ -1,29 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logout from '@/components/auth/Logout';
 import UpdateProfile from '@/components/auth/UpdateProfile';
 import firebaseAuth from '@/helpers/firebaseAuth';
+import useForm from './useForm';
 
 const useUpdate = () => {
   const { currentuser } = firebaseAuth();
   const navigate = useNavigate();
-  const [data, setData] = useState({
-    name: currentuser.displayName,
-    email: currentuser.email,
-  });
+  const { name, email, setFormData } = useForm();
 
-  const { name, email } = data;
-
+  useEffect(() => {
+    setFormData({ name: currentuser.displayName!, email: currentuser.email! });
+  }, [setFormData, currentuser.email, currentuser.displayName]);
   const [changedDetails, setChangedDetails] = useState(false);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   };
 
   const onSubmit = () => {
-    UpdateProfile({ currentuser, name });
+    name && UpdateProfile({ currentuser, name });
   };
   const handleLogout = () => {
     Logout();

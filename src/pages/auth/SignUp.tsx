@@ -62,7 +62,7 @@ const SignUp = () => {
             onChange={onChange}
             placeholder='Name'
             id='name'
-            value={name}
+            value={name!}
             type='text'
           />
           <BRealInput
@@ -70,13 +70,13 @@ const SignUp = () => {
             onChange={onChange}
             placeholder='Email'
             id='email'
-            value={email}
+            value={email!}
             type='email'
           />
           <BRealInput
             placeholder='Password'
             id='password'
-            value={password}
+            value={password!}
             onChange={onChange}
             type={showPassword ? 'text' : 'password'}
             propss={{

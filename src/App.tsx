@@ -14,6 +14,7 @@ import Navbar from '@/components/Navbar';
 import Layout from '@/components/Layout';
 import './App.css';
 import PrivateRoute from '@/components/PrivateRoute';
+import CreateListing from './pages/CreateListing';
 function App() {
   return (
     <Fragment>
@@ -30,6 +31,9 @@ function App() {
             <Route path='/signIn' element={<SignIn />} />
             <Route path='/signUp' element={<SignUp />} />
             <Route path='/forgotPassword' element={<ForgotPassword />} />
+            <Route path='/createListing' element={<PrivateRoute />}>
+              <Route path='/createListing' element={<CreateListing />} />
+            </Route>
           </Routes>
         </Layout>
       </Router>
