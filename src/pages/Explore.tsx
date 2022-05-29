@@ -2,8 +2,12 @@ import Subtitle from '@/components/Subtitle';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import rentImg from '@/assets/jpg/rentCategory.jpg';
-import sellImg from '@/assets/jpg/sellCategory.jpg';
+import rentImgW500 from '@/assets/jpg/rent/rentCategory,w_500.jpg';
+import rentImgW1101 from '@/assets/jpg/rent/rentCategory,w_1101.jpg';
+import rentImgW1500 from '@/assets/jpg/rent/rentCategory,w_1500.jpg';
+import sellImgW500 from '@/assets/jpg/sell/sellCategory,w_500.jpg';
+import sellImgW1175 from '@/assets/jpg/sell/sellCategory,w_1175.jpg';
+import sellImgW1500 from '@/assets/jpg/sell/sellCategory,w_1500.jpg';
 import Container from '@/components/Container';
 import { makeStyles } from 'tss-react/mui';
 
@@ -20,6 +24,8 @@ const useStyles = makeStyles()((theme) => ({
   bodyContainer: {
     display: 'flex',
     padding: '1rem',
+    alignItems: 'center',
+    border: '1px solid red',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
@@ -27,6 +33,7 @@ const useStyles = makeStyles()((theme) => ({
   link: {
     marginRight: '2rem',
     textDecoration: 'none',
+    border: '1px solid blue',
     transition: 'all .5s ease-out',
     '&:hover': {
       transform: 'scale(1.01)',
@@ -70,17 +77,31 @@ const Explore = () => {
         </Typography>
         <Grid className={classes.bodyContainer}>
           <Link to='/category/rent' className={classes.link}>
-            <img
-              src={rentImg}
-              alt='renting'
-              width={200}
-              height={150}
-              className={classes.img}
-            />
+            <picture>
+              <img
+                src={rentImgW500}
+                loading='lazy'
+                alt='renting'
+                width={200}
+                height={150}
+                className={classes.img}
+                srcSet={`${rentImgW500} 500w, ${rentImgW1101} 1101w, ${rentImgW1500} 1500w`}
+              />
+            </picture>
             <Typography className={classes.text}>Rent</Typography>
           </Link>
           <Link to='/category/sell' className={classes.link}>
-            <img src={sellImg} alt='selling' className={classes.img} />
+            <picture>
+              <img
+                loading='lazy'
+                src={sellImgW500}
+                width={200}
+                height={150}
+                srcSet={`${sellImgW500} 500w, ${sellImgW1175} 1175w, ${sellImgW1500} 1500w`}
+                alt='selling'
+                className={classes.img}
+              />
+            </picture>
             <Typography className={classes.text}>Sell</Typography>
           </Link>
         </Grid>
