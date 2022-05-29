@@ -12,7 +12,8 @@ const useUpdate = () => {
 
   useEffect(() => {
     setFormData({ name: currentuser.displayName!, email: currentuser.email! });
-  }, [setFormData, currentuser.email, currentuser.displayName]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentuser.email, currentuser.displayName]);
   const [changedDetails, setChangedDetails] = useState(false);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
