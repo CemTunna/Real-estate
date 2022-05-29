@@ -12,9 +12,6 @@ import { makeStyles } from 'tss-react/mui';
 import Container from '@/components/Container';
 import googleAuth from '@/helpers/googleAuth';
 const useStyles = makeStyles()((theme) => ({
-  container: {
-    border: '1px solid red',
-  },
   text: {
     letterSpacing: '0.5px',
     textTransform: 'lowercase',

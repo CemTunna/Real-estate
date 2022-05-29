@@ -25,7 +25,6 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     padding: '1rem',
     alignItems: 'center',
-    border: '1px solid red',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
@@ -33,7 +32,6 @@ const useStyles = makeStyles()((theme) => ({
   link: {
     marginRight: '2rem',
     textDecoration: 'none',
-    border: '1px solid blue',
     transition: 'all .5s ease-out',
     '&:hover': {
       transform: 'scale(1.01)',
