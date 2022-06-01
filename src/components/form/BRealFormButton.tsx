@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
   id: string;
   value: any;
-  onClick: () => void;
+  onClick: (e: any) => void;
   isActive: boolean;
 }
 const useStyles = makeStyles()((theme) => ({

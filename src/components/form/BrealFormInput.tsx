@@ -51,8 +51,8 @@ const BRealFormInput = ({
   return (
     <input
       multiple={multiple && multiple}
-      min={min && `${min}`}
-      max={max && `${min}`}
+      min={min && min}
+      max={max && max}
       required={required && required}
       maxLength={maxLength && maxLength}
       minLength={minLength && minLength}

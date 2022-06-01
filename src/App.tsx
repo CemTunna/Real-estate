@@ -17,28 +17,26 @@ import PrivateRoute from '@/components/PrivateRoute';
 import CreateListing from './pages/CreateListing';
 function App() {
   return (
-    <Fragment>
+    <Layout>
       <Router>
-        <Layout>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Explore />} />
-            <Route path='/offers' element={<Offers />} />
-            <Route path='/category/:categoryType' element={<Category />} />
-            <Route path='/profile' element={<PrivateRoute />}>
-              <Route path='/profile' element={<Profile />} />
-            </Route>
-            <Route path='/signIn' element={<SignIn />} />
-            <Route path='/signUp' element={<SignUp />} />
-            <Route path='/forgotPassword' element={<ForgotPassword />} />
-            <Route path='/createListing' element={<PrivateRoute />}>
-              <Route path='/createListing' element={<CreateListing />} />
-            </Route>
-          </Routes>
-        </Layout>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Explore />} />
+          <Route path='/offers' element={<Offers />} />
+          <Route path='/category/:categoryType' element={<Category />} />
+          <Route path='/profile' element={<PrivateRoute />}>
+            <Route path='/profile' element={<Profile />} />
+          </Route>
+          <Route path='/signIn' element={<SignIn />} />
+          <Route path='/signUp' element={<SignUp />} />
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
+          <Route path='/createListing' element={<PrivateRoute />}>
+            <Route path='/createListing' element={<CreateListing />} />
+          </Route>
+        </Routes>
       </Router>
       <ToastContainer autoClose={2000} />
-    </Fragment>
+    </Layout>
   );
 }
 

@@ -107,8 +107,27 @@ const CreateListing = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
-  const onMutate = () => {
-    // setFormData((prevState) => ({ ...prevState, type: 'sale' }));
+  const onMutate = (e: any) => {
+    let boolean: boolean | null = null;
+
+    if (e.target.value === 'true') {
+      boolean = true;
+    }
+    if (e.target.value === 'false') {
+      boolean = false;
+    }
+    // files
+    if (e.target.files) {
+      setFormData((prevState) => ({ ...prevState, images: e.target.files }));
+    }
+
+    // text/booleans/numbers
+    if (!e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
   };
   return (
     <Container>
@@ -157,6 +176,7 @@ const CreateListing = () => {
               </BRealFormSubContainer>
               <BRealFormSubContainer icon={<BedIcon fontSize='large' />}>
                 <BReFormLabel label='bedrooms'>Bedrooms</BReFormLabel>
+
                 <BRealFormInput
                   className={classes.input}
                   type='number'
@@ -313,7 +333,7 @@ const CreateListing = () => {
                     <BRealFormInput
                       type='number'
                       id='discountedPrice'
-                      value={'discountedPrice'}
+                      value={discountedPrice}
                       onChange={onMutate}
                       min={50}
                       max={750000000}

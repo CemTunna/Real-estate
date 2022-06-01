@@ -10,6 +10,7 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: 'column',
     height: '100vh',
     backgroundColor: theme.palette.primary.main,
+    overflowY: 'scroll',
   },
 }));
 const Layout: React.FC<LayoutProps> = ({ children }) => {

@@ -1,3 +1,9 @@
+html,
+body {
+  margin: 0px;
+  height: 100%;
+  box-sizing: border-box;
+}
 .MuiInput-input:-webkit-autofill {
   transition-delay: 9999s;
   transition-property: background-color, color;
