@@ -3,11 +3,11 @@ import { Button, ButtonProps, Grid } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import classNames from 'classnames';
 interface Props {
-  className?: string;
   children: React.ReactNode;
   id: string;
   value: any;
   onClick: () => void;
+  isActive: boolean;
 }
 const useStyles = makeStyles()((theme) => ({
   btn: {
@@ -16,15 +16,45 @@ const useStyles = makeStyles()((theme) => ({
     borderRadius: '4px',
     padding: '0.375rem 0.5rem',
     cursor: 'pointer',
+    marginRight: '1rem',
+    width: '10rem',
+    border: '1px solid #333',
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.primary.light,
+    transition: 'all .5s ease-out',
+    opacity: 0.6,
+  },
+  // btn: {
+  //   marginRight: '1rem',
+  //   width: '10rem',
+  //   border: '1px solid #333',
+  //   backgroundColor: theme.palette.primary.dark,
+  //   color: theme.palette.primary.light,
+  //   transition: 'all .5s ease-out',
+  //   opacity: 0.6,
+  // },
+
+  btnActive: {
+    letterSpacing: '0.5px',
+    textTransform: 'capitalize',
+    borderRadius: '4px',
+    padding: '0.375rem 0.5rem',
+    cursor: 'pointer',
+    marginRight: '1rem',
+    width: '10rem',
+    backgroundColor: theme.palette.secondary.dark,
+    border: '1px solid #e74c0e',
+    color: theme.palette.primary.light,
+    transition: 'all .2s ease-out',
   },
 }));
 
 const BRealFormButton = ({
-  className,
   id,
   value,
   children,
   onClick,
+  isActive,
   ...rest
 }: Props) => {
   const { classes } = useStyles();
@@ -33,7 +63,7 @@ const BRealFormButton = ({
       onClick={onClick}
       id={id}
       value={value}
-      className={!className ? classes.btn : classNames(className, classes.btn)}
+      className={isActive ? classes.btnActive : classes.btn}
       {...rest}
     >
       {children}

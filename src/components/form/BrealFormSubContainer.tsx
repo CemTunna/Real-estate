@@ -10,9 +10,11 @@ const BRealFormSubContainer = ({ children, icon }: Props) => {
       style={{
         display: 'flex',
         alignItems: 'center',
+        border: '1px solid red',
       }}
     >
       <Grid>{children}</Grid>
+      {icon}
     </Grid>
   );
 };

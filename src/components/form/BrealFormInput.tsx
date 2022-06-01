@@ -10,6 +10,7 @@ const useStyles = makeStyles()((theme) => ({
     border: '1px solid transparent',
     outline: 'none',
     transition: 'all .2s ease-out',
+    width: '20rem',
     '&:focus': {
       border: '1px solid #e74c0e',
       boxShadow: '0 0 0 2px #e74c0e',
@@ -19,15 +20,21 @@ const useStyles = makeStyles()((theme) => ({
 interface Props {
   type: string;
   id: string;
-  value: any;
+  value?: any;
+  min?: number;
+  max?: number;
   maxLength?: number;
   minLength?: number;
   onChange: (e: any) => void;
   required: boolean;
   className?: string;
+  accept?: any;
+  multiple?: any;
 }
-const BrealFormInput = ({
+const BRealFormInput = ({
   type,
+  min,
+  max,
   maxLength,
   minLength,
   id,
@@ -35,12 +42,17 @@ const BrealFormInput = ({
   onChange,
   required,
   className,
+  accept,
+  multiple,
   ...rest
 }: Props) => {
   const { classes } = useStyles();
 
   return (
     <input
+      multiple={multiple && multiple}
+      min={min && `${min}`}
+      max={max && `${min}`}
       required={required && required}
       maxLength={maxLength && maxLength}
       minLength={minLength && minLength}
@@ -49,11 +61,12 @@ const BrealFormInput = ({
       }
       type={type}
       id={id}
-      value={value}
+      value={value && value}
       onChange={onChange}
+      accept={accept && accept}
       {...rest}
     />
   );
 };
 
-export default BrealFormInput;
+export default BRealFormInput;
