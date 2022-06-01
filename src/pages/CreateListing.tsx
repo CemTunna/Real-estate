@@ -24,9 +24,9 @@ import classNames from 'classnames';
 import BRealFormContainer from '@/components/form/BRealFormContainer';
 import BRealFormInput from '@/components/form/BRealFormInput';
 import BRealFormSubContainer from '@/components/form/BRealFormSubContainer';
+import BReText from '@/components/BReText';
 const useStyles = makeStyles()((theme) => ({
   main: {
-    border: '1px solid red',
     width: '100%',
   },
   label: {
@@ -36,7 +36,6 @@ const useStyles = makeStyles()((theme) => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    border: '20px solid red',
   },
   input: {
     marginBottom: '1rem',
@@ -117,11 +116,7 @@ const CreateListing = () => {
         <Subtitle>Create a Listing </Subtitle>
       </header>
       <main className={classes.main}>
-        <form
-          onSubmit={onSubmit}
-          className={classes.form}
-          style={{ border: '3px solid blue' }}
-        >
+        <form onSubmit={onSubmit} className={classes.form}>
           <Grid style={{ margin: '1rem auto' }}>
             <BReFormLabel>Sell - Rent</BReFormLabel>
             <Grid>
@@ -310,9 +305,7 @@ const CreateListing = () => {
                     max={750000000}
                     required
                   />
-                  {type === 'rent' && (
-                    <p className='formPriceText'>$ / Month</p>
-                  )}
+                  {type === 'rent' && <BReText>$ / Month</BReText>}
                 </Grid>
                 {offer && (
                   <>
@@ -332,9 +325,7 @@ const CreateListing = () => {
               <Grid>
                 <BRealFormSubContainer icon={<ImageIcon fontSize='large' />}>
                   <BReFormLabel>Images</BReFormLabel>
-                  <p className='imagesInfo'>
-                    The first image will be the cover (max 6).
-                  </p>
+                  <BReText>Max 6 images</BReText>
                   <BRealFormInput
                     type='file'
                     id='images'
