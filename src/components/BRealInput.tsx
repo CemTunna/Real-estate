@@ -5,18 +5,19 @@ import classNames from 'classnames';
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
-  placeholder: string;
+  placeholder?: string;
   type: string;
   id: string;
   className?: string;
   propss?: any;
   autoFocus?: boolean;
+  required?: boolean;
 }
 const useStyles = makeStyles()((theme) => ({
   input: {
     color: theme.palette.primary.dark,
     letterSpacing: '0.5px',
-    marginTop: '1rem',
+    marginBottom: '1rem',
     border: '2px solid #05386B ',
     borderRadius: '3px',
     overflow: 'hidden',
@@ -33,10 +34,12 @@ const BRealInput = ({
   id,
   propss,
   autoFocus,
+  required,
 }: Props) => {
   const { classes } = useStyles();
   return (
     <TextField
+      required={required}
       autoFocus={autoFocus}
       variant='standard'
       InputProps={{
@@ -47,7 +50,7 @@ const BRealInput = ({
         !className ? classes.input : classNames(className, classes.input)
       }
       onChange={onChange}
-      placeholder={placeholder}
+      placeholder={placeholder && placeholder}
       id={id}
       value={value}
       type={type}

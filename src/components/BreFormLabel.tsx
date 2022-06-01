@@ -1,10 +1,11 @@
 import React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import { makeStyles } from 'tss-react/mui';
-
+import classNames from 'classnames';
 interface Props {
-  label: string;
+  label?: string;
   children: React.ReactNode;
+  className?: string;
 }
 const useStyles = makeStyles()((theme) => ({
   text: {
@@ -13,14 +14,19 @@ const useStyles = makeStyles()((theme) => ({
     fontWeight: theme.typography.fontWeightBold,
   },
 }));
-const BreFormLabel = ({ children, label }: Props) => {
+const BReFormLabel = ({ className, children, label }: Props) => {
   const { classes } = useStyles();
 
   return (
-    <InputLabel htmlFor={label} className={classes.text}>
+    <InputLabel
+      htmlFor={label && label}
+      className={
+        !className ? classes.text : classNames(className, classes.text)
+      }
+    >
       {children}
     </InputLabel>
   );
 };
 
-export default BreFormLabel;
+export default BReFormLabel;
