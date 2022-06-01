@@ -2,8 +2,9 @@ import { Grid } from '@mui/material';
 import React from 'react';
 interface Props {
   children: React.ReactNode;
+  icon: any;
 }
-const BrealFormSubContainer = ({ children }: Props) => {
+const BRealFormSubContainer = ({ children, icon }: Props) => {
   return (
     <Grid
       style={{
@@ -11,9 +12,9 @@ const BrealFormSubContainer = ({ children }: Props) => {
         alignItems: 'center',
       }}
     >
-      {children}
+      <Grid>{children}</Grid>
     </Grid>
   );
 };
 
-export default BrealFormSubContainer;
+export default BRealFormSubContainer;
