@@ -4,7 +4,7 @@ import { makeStyles } from 'tss-react/mui';
 
 interface Props {
   children: React.ReactNode;
-  icon: any;
+  icon?: any;
 }
 const useStyles = makeStyles()((theme) => ({
   container: {

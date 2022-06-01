@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import Loader from '@/components/Loader';
-import { Grid } from '@mui/material';
+import { Grid, TextareaAutosize } from '@mui/material';
 import Subtitle from '@/components/Subtitle';
 import BRealButton from '@/components/BRealButton';
 import BReFormLabel from '@/components/form/BReFormLabel';
@@ -28,7 +28,6 @@ const useStyles = makeStyles()((theme) => ({
   main: {
     border: '1px solid red',
     width: '100%',
-    alignSelf: 'flex-start',
   },
   label: {
     marginTop: '1rem',
@@ -41,6 +40,11 @@ const useStyles = makeStyles()((theme) => ({
   },
   input: {
     marginBottom: '1rem',
+  },
+  textArea: {
+    border: '1px solid #e74c0e',
+    outline: 'none',
+    padding: '0.375rem 0.5rem',
   },
 }));
 
@@ -118,41 +122,44 @@ const CreateListing = () => {
           className={classes.form}
           style={{ border: '3px solid blue' }}
         >
-          <BReFormLabel>Sell - Rent</BReFormLabel>
-          <Grid>
-            <BRealFormButton
-              isActive={type === 'sale' ? true : false}
-              id='type'
-              value='sale'
-              onClick={onMutate}
-            >
-              Sell
-            </BRealFormButton>
-            <BRealFormButton
-              isActive={type === 'rent' ? true : false}
-              id='type'
-              value='rent'
-              onClick={onMutate}
-            >
-              Rent
-            </BRealFormButton>
+          <Grid style={{ margin: '1rem auto' }}>
+            <BReFormLabel>Sell - Rent</BReFormLabel>
+            <Grid>
+              <BRealFormButton
+                isActive={type === 'sale' ? true : false}
+                id='type'
+                value='sale'
+                onClick={onMutate}
+              >
+                Sell
+              </BRealFormButton>
+              <BRealFormButton
+                isActive={type === 'rent' ? true : false}
+                id='type'
+                value='rent'
+                onClick={onMutate}
+              >
+                Rent
+              </BRealFormButton>
+            </Grid>
           </Grid>
-
           <BRealFormContainer>
             <Grid>
-              <BReFormLabel className={classes.label} label='name'>
-                Name
-              </BReFormLabel>
-              <BRealFormInput
-                className={classes.input}
-                type='text'
-                id='name'
-                value={name}
-                maxLength={32}
-                minLength={10}
-                onChange={onMutate}
-                required={true}
-              />
+              <BRealFormSubContainer>
+                <BReFormLabel className={classes.label} label='name'>
+                  Name
+                </BReFormLabel>
+                <BRealFormInput
+                  className={classes.input}
+                  type='text'
+                  id='name'
+                  value={name}
+                  maxLength={32}
+                  minLength={10}
+                  onChange={onMutate}
+                  required={true}
+                />
+              </BRealFormSubContainer>
               <BRealFormSubContainer icon={<BedIcon fontSize='large' />}>
                 <BReFormLabel label='bedrooms'>Bedrooms</BReFormLabel>
                 <BRealFormInput
@@ -227,13 +234,15 @@ const CreateListing = () => {
               </BRealFormSubContainer>
               <BRealFormSubContainer icon={<HomeIcon fontSize='large' />}>
                 <BReFormLabel label='address'>Address</BReFormLabel>
-                <textarea
-                  className='formInputAddress'
-                  // type='text'
+
+                <TextareaAutosize
+                  className={classes.textArea}
+                  maxRows={4}
                   id='address'
                   value={address}
                   onChange={onMutate}
                   required
+                  style={{ width: '21rem' }}
                 />
               </BRealFormSubContainer>
             </Grid>
