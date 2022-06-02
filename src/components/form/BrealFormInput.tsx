@@ -26,10 +26,10 @@ interface Props {
   maxLength?: number;
   minLength?: number;
   onChange: (e: any) => void;
-  required: boolean;
+  required?: boolean;
   className?: string;
   accept?: any;
-  multiple?: any;
+  multiple?: boolean;
 }
 const BRealFormInput = ({
   type,
@@ -50,7 +50,7 @@ const BRealFormInput = ({
 
   return (
     <input
-      multiple={multiple && multiple}
+      multiple={multiple === true ? true : false}
       min={min && min}
       max={max && max}
       required={required && required}

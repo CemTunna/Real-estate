@@ -25,6 +25,11 @@ import BRealFormContainer from '@/components/form/BRealFormContainer';
 import BRealFormInput from '@/components/form/BRealFormInput';
 import BRealFormSubContainer from '@/components/form/BRealFormSubContainer';
 import BReText from '@/components/BReText';
+import { storeImages } from '@/helpers/storeImages';
+import { toast } from 'react-toastify';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { Listing } from '@/interfaces/Listing';
 const useStyles = makeStyles()((theme) => ({
   main: {
     width: '100%',
@@ -45,12 +50,14 @@ const useStyles = makeStyles()((theme) => ({
     outline: 'none',
     padding: '0.375rem 0.5rem',
   },
+  btn: {
+    width: '100%',
+  },
 }));
 
 const CreateListing = () => {
   const { classes } = useStyles();
 
-  const [geolocationEnabled, setGeolocationEnabled] = useState(false);
   const [formData, setFormData] = useState({
     type: 'rent',
     name: '',
@@ -58,13 +65,11 @@ const CreateListing = () => {
     bathrooms: 1,
     parking: false,
     furnished: false,
-    address: '',
+    location: '',
     offer: false,
     regularPrice: 0,
     discountedPrice: 0,
     images: {},
-    latitude: 0,
-    longitude: 0,
     userRef: '',
   });
   const [loading, setLoading] = useState(false);
@@ -72,14 +77,12 @@ const CreateListing = () => {
   const navigate = useNavigate();
   const mounted = useRef(true);
   const {
-    address,
+    location,
     bathrooms,
     bedrooms,
     discountedPrice,
     furnished,
     images,
-    latitude,
-    longitude,
     name,
     offer,
     parking,
@@ -104,8 +107,40 @@ const CreateListing = () => {
   if (loading) {
     return <Loader />;
   }
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    if (discountedPrice >= regularPrice) {
+      setLoading(false);
+      toast.error('Discounted price must be less than regular price');
+      return;
+    }
+
+    if (Object.keys(images).length > 6) {
+      setLoading(false);
+      toast.error('Max 6 images can be uploaded');
+      return;
+    }
+    let imageArray: any = [];
+
+    const imgUrls = await Promise.all(
+      imageArray.map((img: any) => storeImages(img))
+    ).catch((error) => {
+      setLoading(false);
+      toast.error('images cant being uploaded');
+      return;
+    });
+    const formDataCopy: Listing = {
+      ...formData,
+      imgUrls,
+      timestamp: serverTimestamp(),
+    };
+    delete formDataCopy.images;
+    !formDataCopy.offer && delete formDataCopy.discountedPrice;
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy);
+    setLoading(false);
+    toast.success('Listing saved');
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
   const onMutate = (e: any) => {
     let boolean: boolean | null = null;
@@ -116,12 +151,12 @@ const CreateListing = () => {
     if (e.target.value === 'false') {
       boolean = false;
     }
-    // files
+    // for files
     if (e.target.files) {
       setFormData((prevState) => ({ ...prevState, images: e.target.files }));
     }
 
-    // text/booleans/numbers
+    // for text/booleans/numbers
     if (!e.target.files) {
       setFormData((prevState) => ({
         ...prevState,
@@ -247,49 +282,22 @@ const CreateListing = () => {
                   </BRealFormButton>
                 </Grid>
               </BRealFormSubContainer>
+            </Grid>
+            <Grid>
               <BRealFormSubContainer icon={<HomeIcon fontSize='large' />}>
-                <BReFormLabel label='address'>Address</BReFormLabel>
+                <BReFormLabel label='location'>Address</BReFormLabel>
 
                 <TextareaAutosize
                   className={classes.textArea}
                   maxRows={4}
-                  id='address'
-                  value={address}
+                  id='location'
+                  value={location}
                   onChange={onMutate}
                   required
                   style={{ width: '21rem' }}
                 />
               </BRealFormSubContainer>
-            </Grid>
-            <Grid>
-              <BRealFormSubContainer icon={<LocationOnIcon fontSize='large' />}>
-                {!geolocationEnabled && (
-                  <Grid>
-                    <Grid>
-                      <BReFormLabel>Latitude</BReFormLabel>
-                      <BRealFormInput
-                        className={classes.input}
-                        type='number'
-                        id='latitude'
-                        value={latitude}
-                        onChange={onMutate}
-                        required
-                      />
-                    </Grid>
-                    <Grid>
-                      <BReFormLabel>Longitude</BReFormLabel>
-                      <BRealFormInput
-                        className={classes.input}
-                        type='number'
-                        id='longitude'
-                        value={longitude}
-                        onChange={onMutate}
-                        required
-                      />
-                    </Grid>
-                  </Grid>
-                )}
-              </BRealFormSubContainer>
+
               <BRealFormSubContainer icon={<LocalOfferIcon fontSize='large' />}>
                 <BReFormLabel>Offer</BReFormLabel>
                 <Grid>
@@ -346,18 +354,20 @@ const CreateListing = () => {
                 <BRealFormSubContainer icon={<ImageIcon fontSize='large' />}>
                   <BReFormLabel>Images</BReFormLabel>
                   <BReText>Max 6 images</BReText>
+
                   <BRealFormInput
                     type='file'
                     id='images'
                     onChange={onMutate}
                     max={6}
                     accept='.jpg,.png,.jpeg'
-                    multiple
-                    required
+                    multiple={true}
                   />
-                  <BRealButton type='submit'>Create Listing</BRealButton>
                 </BRealFormSubContainer>
               </Grid>
+              <BRealButton className={classes.btn} type='submit'>
+                Create Listing
+              </BRealButton>
             </Grid>
           </BRealFormContainer>
         </form>

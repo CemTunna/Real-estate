@@ -18,7 +18,8 @@ const useStyles = makeStyles()((theme) => ({
     overflow: 'hidden',
     flex: 1,
     transition: 'all .5s ease-out',
-
+    marginBottom: '1rem',
+    marginRight: '1rem',
     '&:hover': {
       boxShadow:
         'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset',
@@ -30,7 +31,7 @@ const useStyles = makeStyles()((theme) => ({
     textDecoration: 'none',
     padding: 0,
     width: '100%',
-    height: '15rem',
+    height: '10rem',
   },
   text: {
     fontWeight: theme.typography.fontWeightBold,
@@ -40,13 +41,13 @@ const useStyles = makeStyles()((theme) => ({
     marginRight: '1rem',
   },
   bodyContainer: {
-    width: '70%',
+    width: '80%',
     display: 'flex',
     justifyContent: 'space-between',
     padding: '1rem',
   },
   img: {
-    width: '50%',
+    width: '20%',
     height: '100%',
     margin: 0,
   },

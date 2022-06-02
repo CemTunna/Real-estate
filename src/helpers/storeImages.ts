@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 export const storeImages = async (image: any) => {
   return new Promise((resolve, reject) => {
     const store = getStorage();
-    const file = `${firebaseAuth().currentuser.uid}-${image.name}-${uuid()}`;
+    const file = `${uuid()}`;
     const storeRef = ref(store, 'images/' + file);
     const uploadTask = uploadBytesResumable(storeRef, image);
     uploadTask.on(
