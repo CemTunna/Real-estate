@@ -121,15 +121,15 @@ const CreateListing = () => {
       toast.error('Max 6 images can be uploaded');
       return;
     }
-    let imageArray: any = [];
 
     const imgUrls = await Promise.all(
-      imageArray.map((img: any) => storeImages(img))
+      Object.entries(images).map((image: any) => storeImages(image[1]))
     ).catch((error) => {
       setLoading(false);
       toast.error('images cant being uploaded');
       return;
     });
+
     const formDataCopy: Listing = {
       ...formData,
       imgUrls,

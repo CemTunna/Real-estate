@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Register from '@/helpers/auth/register';
+import register from '@/helpers/auth/register';
 import login from '@/helpers/auth/login';
 import { useNavigate } from 'react-router-dom';
 import forgotPassword from '@/helpers/forgotPassword';
@@ -31,7 +31,7 @@ const useForm = () => {
       email &&
         password &&
         name &&
-        Register({ email, password, name, formData });
+        register({ email, password, name, formData });
       navigate('/');
     }
     // login
