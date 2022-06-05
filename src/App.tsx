@@ -14,7 +14,10 @@ import Navbar from '@/components/Navbar';
 import Layout from '@/components/Layout';
 import './App.css';
 import PrivateRoute from '@/components/PrivateRoute';
-import CreateListing from './pages/CreateListing';
+import CreateListing from '@/pages/CreateListing';
+import Listing from '@/pages/Listing';
+import Contact from '@/pages/Contact';
+
 function App() {
   return (
     <Layout>
@@ -33,6 +36,8 @@ function App() {
           <Route path='/createListing' element={<PrivateRoute />}>
             <Route path='/createListing' element={<CreateListing />} />
           </Route>
+          <Route path='/category/:categoryType/:Id' element={<Listing />} />
+          <Route path='/contact/:landlordId' element={<Contact />} />
         </Routes>
       </Router>
       <ToastContainer autoClose={2000} />

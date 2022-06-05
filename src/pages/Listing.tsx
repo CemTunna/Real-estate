@@ -13,9 +13,11 @@ const Listing = () => {
 
   const navigate = useNavigate();
   const params = useParams();
+
   useEffect(() => {
     const fetchListing = async () => {
-      const docRef = doc(db, 'listings', params.Id);
+      const collection = 'listings';
+      const docRef = doc(db, collection!, params.Id!.toString());
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setListing(docSnap.data());
