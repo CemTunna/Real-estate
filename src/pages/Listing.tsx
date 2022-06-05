@@ -156,7 +156,7 @@ const Listing = () => {
           </Link>
         )}
       </Grid>
-      <Grid style={{ marginRight: '2rem' }}>
+      <Grid style={{ width: '10rem' }}>
         <IconButton
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
