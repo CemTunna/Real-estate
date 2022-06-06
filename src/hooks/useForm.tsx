@@ -55,7 +55,7 @@ const useForm = () => {
       name && dispatch(updateRequest({ currentuser, name }));
     }
   };
-  console.log('ssad', formData);
+
   return {
     onSubmit,
     email,

@@ -13,6 +13,7 @@ import BRealInput from '@/components/BRealInput';
 import Container from '@/components/Container';
 import OAuth from '@/components/oauth/OAuth';
 import { useDispatch, useSelector } from 'react-redux';
+import useNavigateIfValueOk from '@/hooks/useNavigateIfValueOk';
 const useStyles = makeStyles()((theme) => ({
   input: {
     width: '40rem',
@@ -35,15 +36,10 @@ const useStyles = makeStyles()((theme) => ({
 const SignIn = () => {
   const { isLoggedIn } = useSelector((state: any) => state.auth);
   const { classes } = useStyles();
-  const navigate = useNavigate();
+
   const { email, password, onChange, showPassword, setShowPassword, onSubmit } =
     useForm();
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn, navigate]);
-
+  useNavigateIfValueOk(isLoggedIn);
   return (
     <Fragment>
       <Container>
