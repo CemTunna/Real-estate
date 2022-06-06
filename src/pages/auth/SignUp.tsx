@@ -1,12 +1,6 @@
-import {
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Grid, IconButton, InputAdornment } from '@mui/material';
+import { Fragment, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
@@ -17,6 +11,7 @@ import Subtitle from '@/components/Subtitle';
 import BRealForm from '@/components/BRealForm';
 import BRealInput from '@/components/BRealInput';
 import OAuth from '@/components/oauth/OAuth';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles()((theme) => ({
   input: {
@@ -48,6 +43,16 @@ const SignUp = () => {
     showPassword,
     setShowPassword,
   } = useForm();
+
+  const { isRegistered } = useSelector((state: any) => state.auth);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isRegistered) {
+      navigate('/');
+    }
+  }, [isRegistered, navigate]);
 
   return (
     <Fragment>

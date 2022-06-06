@@ -33,7 +33,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 const SignIn = () => {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state: any) => state.auth);
   const { classes } = useStyles();
   const navigate = useNavigate();
   const { email, password, onChange, showPassword, setShowPassword, onSubmit } =
@@ -42,7 +42,7 @@ const SignIn = () => {
     if (isLoggedIn) {
       navigate('/');
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   return (
     <Fragment>

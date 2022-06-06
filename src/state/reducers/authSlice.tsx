@@ -5,13 +5,14 @@ const initialState = {
   isLoggedIn: false,
   loading: false,
   error: null,
+  isRegistered: false,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authRequest: (state, action: any) => {
+    loginRequest: (state, action: any) => {
       state.loading = true;
       state.isLoggedIn = false;
     },
@@ -20,6 +21,7 @@ export const authSlice = createSlice({
       auth.signOut();
       state.isLoggedIn = false;
       state.loading = false;
+      state.isRegistered = false;
     },
     logIn: (state, action: any) => {
       state.isLoggedIn = action.isLoggedIn;
@@ -28,23 +30,21 @@ export const authSlice = createSlice({
       }
       state.loading = false;
     },
-    // getauthRequest: (state, action) => {
-    //   state.loading = true;
-    // },
-    // getauthSuccess: (state, action) => {
-    //   state.loading = false;
-    //   state.auths = action.auths;
-    // },
-    // getauthFailed: (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.message;
-    // },
-    // setText: (state, action) => {
-    //   state.text = action.payload;
-    // },
+    registerRequest: (state, action: any) => {
+      state.loading = true;
+      state.isRegistered = false;
+    },
+    register: (state, action: any) => {
+      state.isRegistered = action.isRegistered;
+      if (state.isRegistered === false) {
+        toast.error('Wrong Credentials');
+      }
+      state.loading = false;
+    },
   },
 });
 
-export const { logOut, logIn, authRequest } = authSlice.actions;
+export const { logOut, logIn, loginRequest, registerRequest, register } =
+  authSlice.actions;
 
 export default authSlice.reducer;
