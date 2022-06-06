@@ -3,12 +3,15 @@ import register from '@/helpers/auth/register';
 import login from '@/helpers/auth/login';
 import { useNavigate } from 'react-router-dom';
 import forgotPassword from '@/helpers/forgotPassword';
+import { useDispatch } from 'react-redux';
+import { authRequest } from '@/state/reducers/authSlice';
 interface Form {
   email?: string;
   password?: string;
   name?: string;
 }
 const useForm = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState<Form>({
     email: '',
     password: '',
@@ -23,7 +26,9 @@ const useForm = () => {
       [e.target.id]: e.target.value,
     }));
   };
-
+  const handleLogin = (value: { email: string; password: string }) => {
+    dispatch(authRequest(value));
+  };
   const onSubmit = (e?: any) => {
     e.preventDefault();
     // register
@@ -36,7 +41,7 @@ const useForm = () => {
     }
     // login
     if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
-      email && password && login({ email, password, navigate });
+      email && password && handleLogin({ email, password });
     }
     // forgot password
     if (email!.length > 0 && name!.length === 0 && password!.length === 0) {

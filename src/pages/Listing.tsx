@@ -6,7 +6,7 @@ import firebaseAuth from '@/helpers/firebaseAuth';
 import { db } from '@/firebase';
 import ShareIcon from '@mui/icons-material/Share';
 import Loader from '@/components/Loader';
-import auth from '@/state/reducers/auth';
+// import auth from '@/state/reducers/auth';
 import { Grid, IconButton, List, ListItem, Typography } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import BReText from '@/components/BReText';

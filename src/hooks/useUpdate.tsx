@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import logout from '@/helpers/auth/logout';
 import updateProfile from '@/helpers/auth/updateProfile';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import useForm from './useForm';
 
 const useUpdate = () => {
   const { currentuser } = firebaseAuth();
-  const navigate = useNavigate();
   const { name, email, setFormData } = useForm();
 
   useEffect(() => {
@@ -25,12 +22,8 @@ const useUpdate = () => {
   const onSubmit = () => {
     name && updateProfile({ currentuser, name });
   };
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+
   return {
-    handleLogout,
     name,
     email,
     onSubmit,

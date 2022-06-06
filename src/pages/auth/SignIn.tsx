@@ -1,13 +1,7 @@
-import {
-  Grid,
-  IconButton,
-  Typography,
-  TextField,
-  InputAdornment,
-} from '@mui/material';
+import { Grid, IconButton, InputAdornment } from '@mui/material';
 
-import React, { Fragment, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
@@ -18,6 +12,7 @@ import BRealForm from '@/components/BRealForm';
 import BRealInput from '@/components/BRealInput';
 import Container from '@/components/Container';
 import OAuth from '@/components/oauth/OAuth';
+import { useDispatch, useSelector } from 'react-redux';
 const useStyles = makeStyles()((theme) => ({
   input: {
     width: '40rem',
@@ -38,9 +33,17 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 const SignIn = () => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { classes } = useStyles();
+  const navigate = useNavigate();
   const { email, password, onChange, showPassword, setShowPassword, onSubmit } =
     useForm();
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn]);
+
   return (
     <Fragment>
       <Container>

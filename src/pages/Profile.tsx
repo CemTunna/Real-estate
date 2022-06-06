@@ -13,6 +13,9 @@ import BRealButton from '@/components/BRealButton';
 import BRealForm from '@/components/BRealForm';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logOut } from '@/state/reducers/authSlice';
 const useStyles = makeStyles()((theme) => ({
   title: {
     color: theme.palette.secondary.main,
@@ -25,7 +28,6 @@ const useStyles = makeStyles()((theme) => ({
     width: '30rem',
     display: 'flex',
     flexDirection: 'column',
-    border: '1px solid red',
   },
   bodyContainer: {
     display: 'flex',
@@ -82,16 +84,15 @@ const useStyles = makeStyles()((theme) => ({
 
 const Profile = () => {
   const { classes } = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const {
-    handleLogout,
-    name,
-    email,
-    onSubmit,
-    onChange,
-    changedDetails,
-    setChangedDetails,
-  } = useUpdate();
+  const logout = () => {
+    dispatch(logOut());
+    navigate('/');
+  };
+  const { name, email, onSubmit, onChange, changedDetails, setChangedDetails } =
+    useUpdate();
   return (
     <Container>
       <header>
@@ -154,7 +155,7 @@ const Profile = () => {
           List your home or rent one!
           <ChevronRightIcon style={{ marginLeft: '10px' }} />
         </Link>
-        <BRealButton className={classes.btn} onClick={handleLogout}>
+        <BRealButton className={classes.btn} onClick={logout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </BRealButton>
       </main>
