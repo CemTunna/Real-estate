@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   error: null,
   isRegistered: false,
+  isUpdate: false,
 };
 
 export const authSlice = createSlice({
@@ -41,10 +42,28 @@ export const authSlice = createSlice({
       }
       state.loading = false;
     },
+    updateRequest: (state, action: any) => {
+      state.loading = true;
+      state.isUpdate = false;
+    },
+    update: (state, action: any) => {
+      state.isUpdate = action.isUpdated;
+      if (state.isUpdate === false) {
+        toast.error('Wrong Credentials');
+      }
+      state.loading = false;
+    },
   },
 });
 
-export const { logOut, logIn, loginRequest, registerRequest, register } =
-  authSlice.actions;
+export const {
+  updateRequest,
+  update,
+  logOut,
+  logIn,
+  loginRequest,
+  registerRequest,
+  register,
+} = authSlice.actions;
 
 export default authSlice.reducer;

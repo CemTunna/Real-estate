@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, TextField, Typography } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import useUpdate from '@/hooks/useUpdate';
 import Subtitle from '@/components/Subtitle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -16,6 +15,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '@/state/reducers/authSlice';
+import firebaseAuth from '@/helpers/firebaseAuth';
+import useForm from '@/hooks/useForm';
 const useStyles = makeStyles()((theme) => ({
   title: {
     color: theme.palette.secondary.main,
@@ -86,13 +87,24 @@ const Profile = () => {
   const { classes } = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [changedDetails, setChangedDetails] = useState(false);
   const logout = () => {
     dispatch(logOut());
     navigate('/');
   };
-  const { name, email, onSubmit, onChange, changedDetails, setChangedDetails } =
-    useUpdate();
+
+  const { currentuser } = firebaseAuth();
+  const { name, email, setFormData, onChange, onSubmit } = useForm();
+
+  useEffect(() => {
+    setFormData((prevState) => ({
+      ...prevState,
+      name: currentuser.displayName!,
+      email: currentuser.email!,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentuser.email, currentuser.displayName]);
+
   return (
     <Container>
       <header>

@@ -5,7 +5,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { app, db } from '@/firebase';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 
 interface LoginProps {
   email: string;
@@ -22,6 +22,10 @@ interface DataCopy {
   password?: string;
   name: string;
   timestamp?: any;
+}
+interface UpdateProps {
+  name: string;
+  currentuser: any;
 }
 export const login = async ({ email, password }: LoginProps) => {
   try {
@@ -64,5 +68,24 @@ export const register = async ({
     return true;
   } catch (error) {
     return false;
+  }
+};
+export const updateAuth = async ({ currentuser, name }: UpdateProps) => {
+  try {
+    if (currentuser.displayName !== name) {
+      // update display name in fb
+      await updateProfile(currentuser, {
+        displayName: name,
+      });
+      // update in firestore
+      const userRef = doc(db, 'users', currentuser.uid);
+      await updateDoc(userRef, {
+        name,
+      });
+    }
+    return true;
+  } catch (error) {
+    return false;
+    // toast.error('Could not update profile credentials');
   }
 };
