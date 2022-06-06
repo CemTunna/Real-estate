@@ -1,5 +1,5 @@
 import Subtitle from '@/components/Subtitle';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Slider, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import rentImgW500 from '@/assets/jpg/rent/rentCategory,w_500.jpg';
@@ -69,7 +69,7 @@ const Explore = () => {
 
       <main className={classes.main}>
         {/* slider */}
-
+        <Slider />
         <Typography variant='h4' className={classes.title}>
           Categories
         </Typography>

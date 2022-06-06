@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDoc, doc } from 'firebase/firestore';
 import firebaseAuth from '@/helpers/firebaseAuth';
@@ -14,11 +15,20 @@ import BedIcon from '@mui/icons-material/Bed';
 import BathroomIcon from '@mui/icons-material/Bathroom';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ChairIcon from '@mui/icons-material/Chair';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 const useStyles = makeStyles()((theme) => ({
   main: {
     display: 'flex',
     padding: '2rem',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   link: {
     fontWeight: theme.typography.fontWeightBold,
@@ -29,6 +39,7 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '50rem',
+    border: '1px solid red',
   },
   text: {
     fontWeight: theme.typography.fontWeightBold,
@@ -72,6 +83,11 @@ const useStyles = makeStyles()((theme) => ({
       color: theme.palette.primary.light,
     },
   },
+  imgContainer: {
+    height: '15rem',
+    width: '90vw',
+    overflow: 'hidden',
+  },
 }));
 
 const Listing = () => {
@@ -102,77 +118,95 @@ const Listing = () => {
 
   return (
     <main className={classes.main}>
-      {/* slider */}
-
-      <Grid className={classes.container}>
-        <BReText className={classes.text}>
-          {listing.name} -{' $'}
-          {listing.offer
-            ? listing.discountedPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            : listing.regularPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-        </BReText>
-        <BReText className={classes.text}>{listing.location}</BReText>
-        <BReText className={classNames(classes.for, classes.text)}>
-          For {listing.type === 'rent' ? 'Rent' : 'Sale'}
-        </BReText>
-        {listing.offer && (
-          <Typography className={classes.price}>
-            ${listing.regularPrice - listing.discountedPrice} discount
-          </Typography>
-        )}
-        <List>
-          <ListItem className={classes.listItem}>
-            {listing.bedrooms > 1
-              ? `${listing.bedrooms} Bedrooms`
-              : '1 Bedroom'}{' '}
-            <BedIcon className={classes.icon} fontSize='large' />
-          </ListItem>
-          <ListItem className={classes.listItem}>
-            {listing.bathrooms > 1
-              ? `${listing.bathrooms} Bathrooms`
-              : '1 Bathroom'}{' '}
-            <BathroomIcon className={classes.icon} fontSize='large' />
-          </ListItem>
-          {listing.parking && (
-            <ListItem className={classes.listItem}>
-              'Parking Spot'
-              <DirectionsCarIcon className={classes.icon} fontSize='large' />
-            </ListItem>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+      >
+        {listing.imgUrls.map((url: string, index: number) => (
+          <SwiperSlide key={index}>
+            <Grid
+              className={classes.imgContainer}
+              style={{
+                background: `url(${listing.imgUrls[index]}) no-repeat center `,
+                backgroundSize: 'cover',
+              }}
+            ></Grid>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <Grid style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Grid className={classes.container}>
+          <BReText className={classes.text}>
+            {listing.name} -{' $'}
+            {listing.offer
+              ? listing.discountedPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              : listing.regularPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </BReText>
+          <BReText className={classes.text}>{listing.location}</BReText>
+          <BReText className={classNames(classes.for, classes.text)}>
+            For {listing.type === 'rent' ? 'Rent' : 'Sale'}
+          </BReText>
+          {listing.offer && (
+            <Typography className={classes.price}>
+              ${listing.regularPrice - listing.discountedPrice} discount
+            </Typography>
           )}
-          {listing.furnished && (
+          <List>
             <ListItem className={classes.listItem}>
-              'Furnished <ChairIcon className={classes.icon} fontSize='large' />
+              {listing.bedrooms > 1
+                ? `${listing.bedrooms} Bedrooms`
+                : '1 Bedroom'}{' '}
+              <BedIcon className={classes.icon} fontSize='large' />
             </ListItem>
+            <ListItem className={classes.listItem}>
+              {listing.bathrooms > 1
+                ? `${listing.bathrooms} Bathrooms`
+                : '1 Bathroom'}{' '}
+              <BathroomIcon className={classes.icon} fontSize='large' />
+            </ListItem>
+            {listing.parking && (
+              <ListItem className={classes.listItem}>
+                'Parking Spot'
+                <DirectionsCarIcon className={classes.icon} fontSize='large' />
+              </ListItem>
+            )}
+            {listing.furnished && (
+              <ListItem className={classes.listItem}>
+                'Furnished{' '}
+                <ChairIcon className={classes.icon} fontSize='large' />
+              </ListItem>
+            )}
+          </List>
+          {firebaseAuth().currentuser?.uid !== listing.userRef && (
+            <Link
+              to={`/contact/${listing.userRef}?listingName=${listing.name}`}
+              className={classes.linkBtn}
+            >
+              Contact LandLord
+            </Link>
           )}
-        </List>
-        {firebaseAuth().currentuser?.uid !== listing.userRef && (
-          <Link
-            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
-            className={classes.linkBtn}
+        </Grid>
+        {/* <Grid style={{ width: '10rem' }}>
+          <IconButton
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              setShareLinkCopied(true);
+              setTimeout(() => {
+                setShareLinkCopied(false);
+              }, 2000);
+            }}
           >
-            Contact LandLord
-          </Link>
-        )}
-      </Grid>
-      <Grid style={{ width: '10rem' }}>
-        <IconButton
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-            setShareLinkCopied(true);
-            setTimeout(() => {
-              setShareLinkCopied(false);
-            }, 2000);
-          }}
-        >
-          <ShareIcon />
-        </IconButton>
-        {shareLinkCopied && (
-          <Typography className={classes.link}>Link Copied</Typography>
-        )}
+            <ShareIcon />
+          </IconButton>
+          {shareLinkCopied && (
+            <Typography className={classes.link}>Link Copied</Typography>
+          )}
+        </Grid> */}
       </Grid>
     </main>
   );
