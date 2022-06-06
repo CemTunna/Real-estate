@@ -4,9 +4,9 @@ import { makeStyles } from 'tss-react/mui';
 import classNames from 'classnames';
 interface Props {
   children: React.ReactNode;
-  id: string;
-  value: any;
-  onClick: (e: any) => void;
+  id?: string;
+  value?: any;
+  onClick?: (e: any) => void;
   isActive: boolean;
 }
 const useStyles = makeStyles()((theme) => ({
@@ -60,9 +60,9 @@ const BRealFormButton = ({
   const { classes } = useStyles();
   return (
     <button
-      onClick={onClick}
-      id={id}
-      value={value}
+      onClick={onClick && onClick}
+      id={id && id}
+      value={value && value}
       className={isActive ? classes.btnActive : classes.btn}
       {...rest}
     >

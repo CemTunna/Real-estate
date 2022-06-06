@@ -18,7 +18,7 @@ const useStyles = makeStyles()((theme) => ({
   main: {
     display: 'flex',
     padding: '2rem',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   link: {
     fontWeight: theme.typography.fontWeightBold,
@@ -137,10 +137,12 @@ const Listing = () => {
               : '1 Bathroom'}{' '}
             <BathroomIcon className={classes.icon} fontSize='large' />
           </ListItem>
-          <ListItem className={classes.listItem}>
-            {listing.parking && 'Parking Spot'}{' '}
-            <DirectionsCarIcon className={classes.icon} fontSize='large' />
-          </ListItem>
+          {listing.parking && (
+            <ListItem className={classes.listItem}>
+              'Parking Spot'
+              <DirectionsCarIcon className={classes.icon} fontSize='large' />
+            </ListItem>
+          )}
           {listing.furnished && (
             <ListItem className={classes.listItem}>
               'Furnished <ChairIcon className={classes.icon} fontSize='large' />
