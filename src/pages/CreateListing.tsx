@@ -29,7 +29,7 @@ import { storeImages } from '@/helpers/storeImages';
 import { toast } from 'react-toastify';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
-import { Listing } from '@/interfaces/Listing';
+
 const useStyles = makeStyles()((theme) => ({
   main: {
     width: '100%',
@@ -42,16 +42,31 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  subFormContainer: {
+    margin: '1rem auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   input: {
     marginBottom: '1rem',
+    border: '3px solid blue',
   },
   textArea: {
     border: '1px solid #e74c0e',
     outline: 'none',
-    padding: '0.375rem 0.5rem',
+    padding: '0.375rem',
+    maxWidth: '20rem',
   },
   btn: {
     width: '100%',
+  },
+  btnContainer: {
+    display: 'flex',
+  },
+  icon: {
+    fontSize: 'medium',
   },
 }));
 
@@ -171,9 +186,9 @@ const CreateListing = () => {
       </header>
       <main className={classes.main}>
         <form onSubmit={onSubmit} className={classes.form}>
-          <Grid style={{ margin: '1rem auto' }}>
+          <Grid className={classes.subFormContainer}>
             <BReFormLabel>Sell - Rent</BReFormLabel>
-            <Grid>
+            <Grid className={classes.btnContainer}>
               <BRealFormButton
                 isActive={type === 'sale' ? true : false}
                 id='type'
@@ -209,9 +224,10 @@ const CreateListing = () => {
                   required={true}
                 />
               </BRealFormSubContainer>
-              <BRealFormSubContainer icon={<BedIcon fontSize='large' />}>
+              <BRealFormSubContainer
+                icon={<BedIcon className={classes.icon} />}
+              >
                 <BReFormLabel label='bedrooms'>Bedrooms</BReFormLabel>
-
                 <BRealFormInput
                   className={classes.input}
                   type='number'
@@ -223,7 +239,9 @@ const CreateListing = () => {
                   required
                 />
               </BRealFormSubContainer>
-              <BRealFormSubContainer icon={<BathroomIcon fontSize='large' />}>
+              <BRealFormSubContainer
+                icon={<BathroomIcon className={classes.icon} />}
+              >
                 <BReFormLabel label='bathrooms'>Bathrooms</BReFormLabel>
                 <BRealFormInput
                   className={classes.input}
@@ -237,11 +255,9 @@ const CreateListing = () => {
                 />
               </BRealFormSubContainer>
 
-              <BRealFormSubContainer
-                icon={<DirectionsCarIcon fontSize='large' />}
-              >
+              <BRealFormSubContainer>
                 <BReFormLabel>Parking spot</BReFormLabel>
-                <Grid>
+                <Grid className={classes.btnContainer}>
                   <BRealFormButton
                     isActive={parking ? true : false}
                     id='parking'
@@ -261,9 +277,9 @@ const CreateListing = () => {
                 </Grid>
               </BRealFormSubContainer>
 
-              <BRealFormSubContainer icon={<ChairIcon fontSize='large' />}>
+              <BRealFormSubContainer>
                 <BReFormLabel>Furnished</BReFormLabel>
-                <Grid>
+                <Grid className={classes.btnContainer}>
                   <BRealFormButton
                     isActive={furnished ? true : false}
                     value={true}
@@ -284,7 +300,9 @@ const CreateListing = () => {
               </BRealFormSubContainer>
             </Grid>
             <Grid>
-              <BRealFormSubContainer icon={<HomeIcon fontSize='large' />}>
+              <BRealFormSubContainer
+                icon={<HomeIcon className={classes.icon} />}
+              >
                 <BReFormLabel label='location'>Address</BReFormLabel>
 
                 <TextareaAutosize
@@ -298,9 +316,9 @@ const CreateListing = () => {
                 />
               </BRealFormSubContainer>
 
-              <BRealFormSubContainer icon={<LocalOfferIcon fontSize='large' />}>
+              <BRealFormSubContainer>
                 <BReFormLabel>Offer</BReFormLabel>
-                <Grid>
+                <Grid className={classes.btnContainer}>
                   <BRealFormButton
                     isActive={offer ? true : false}
                     id='offer'
@@ -320,7 +338,7 @@ const CreateListing = () => {
                 </Grid>
               </BRealFormSubContainer>
               <BRealFormSubContainer
-                icon={<AttachMoneyIcon fontSize='large' />}
+                icon={<AttachMoneyIcon className={classes.icon} />}
               >
                 <BReFormLabel>Regular Price</BReFormLabel>
                 <Grid>
@@ -351,7 +369,9 @@ const CreateListing = () => {
                 )}
               </BRealFormSubContainer>
               <Grid>
-                <BRealFormSubContainer icon={<ImageIcon fontSize='large' />}>
+                <BRealFormSubContainer
+                  icon={<ImageIcon className={classes.icon} />}
+                >
                   <BReFormLabel>Images</BReFormLabel>
                   <BReText>Max 6 images</BReText>
 
