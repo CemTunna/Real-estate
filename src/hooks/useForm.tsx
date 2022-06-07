@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  forgotPasswordRequest,
-  loginRequest,
-  registerRequest,
-  updateRequest,
-} from '@/state/reducers/authSlice';
 import firebaseAuth from '@/helpers/firebaseAuth';
+import { register } from '@/helpers/auth/register';
+import { login } from '@/helpers/auth/login';
+import { forgotPassword } from '@/helpers/auth/forgotPassword';
+import { updateAuth } from '@/helpers/auth/update';
 interface Form {
   email?: string;
   password?: string;
   name?: string;
 }
 const useForm = () => {
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState<Form>({
     email: '',
     password: '',
@@ -40,19 +37,21 @@ const useForm = () => {
       email &&
         password &&
         name &&
-        dispatch(registerRequest({ email, password, name, formData }));
+        register({ email, password, name, formData });
+      navigate('/');
     }
     // login
     if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
-      email && password && dispatch(loginRequest({ email, password }));
+      email && password && login({ email, password });
+      navigate('/');
     }
     // forgot password
     if (email!.length > 0 && name!.length === 0 && password!.length === 0) {
-      dispatch(forgotPasswordRequest(formData.email!));
+      email && forgotPassword(formData.email!);
     }
     // update
     if (email!.length > 0 && name!.length > 0 && password!.length === 0) {
-      name && dispatch(updateRequest({ currentuser, name }));
+      name && updateAuth({ currentuser, name });
     }
   };
 

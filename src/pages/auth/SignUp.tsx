@@ -11,8 +11,6 @@ import Subtitle from '@/components/Subtitle';
 import BRealForm from '@/components/BRealForm';
 import BRealInput from '@/components/BRealInput';
 import OAuth from '@/components/oauth/OAuth';
-import { useSelector } from 'react-redux';
-import useNavigateIfValueOk from '@/hooks/useNavigateIfValueOk';
 
 const useStyles = makeStyles()((theme) => ({
   input: {
@@ -45,9 +43,6 @@ const SignUp = () => {
     setShowPassword,
   } = useForm();
 
-  const { isRegistered } = useSelector((state: any) => state.auth);
-
-  useNavigateIfValueOk(isRegistered);
   return (
     <Fragment>
       <Container>

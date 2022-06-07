@@ -1,16 +1,22 @@
 export interface Listing {
   bathrooms: number;
   bedrooms: number;
-  discountedPrice?: number;
+  discountedPrice?: string;
   furnished: boolean;
-  imgUrls: any;
+  imgUrls: string[];
   location?: string;
   name: string;
   offer: boolean;
   parking: boolean;
-  regularPrice: number;
+  regularPrice: string;
   type: string;
   timestamp: any;
   id?: string;
-  images?: any;
+  userRef: string;
+}
+export interface Listings {
+  listings: {
+    id: string;
+    data: Listing;
+  }[];
 }

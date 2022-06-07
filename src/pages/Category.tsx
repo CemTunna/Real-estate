@@ -77,7 +77,7 @@ const Category = () => {
     };
     getList();
   }, [params.categoryType]);
-
+  console.log(listing);
   const moreGetList = async () => {
     try {
       const listRef = collection(db, 'listings');

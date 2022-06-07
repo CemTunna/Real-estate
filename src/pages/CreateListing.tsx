@@ -129,8 +129,8 @@ const CreateListing = () => {
       toast.error('images cant being uploaded');
       return;
     });
-
-    const formDataCopy: Listing = {
+    // will be changed
+    const formDataCopy: any = {
       ...formData,
       imgUrls,
       timestamp: serverTimestamp(),

@@ -14,7 +14,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logOut } from '@/state/reducers/authSlice';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import useForm from '@/hooks/useForm';
 import {
@@ -97,15 +96,15 @@ const useStyles = makeStyles()((theme) => ({
 
 const Profile = () => {
   const { classes } = useStyles();
-  const dispatch = useDispatch();
+  const { currentuser, auth } = firebaseAuth();
+
   const navigate = useNavigate();
   const [changedDetails, setChangedDetails] = useState(false);
   const logout = () => {
-    dispatch(logOut());
-    navigate('/');
+    auth.signOut();
+    navigate('/signIn');
   };
 
-  const { currentuser } = firebaseAuth();
   const { name, email, setFormData, onChange, onSubmit } = useForm();
   const [listings, setListings] = useState<any>();
   const [loading, setLoading] = useState(true);
@@ -145,6 +144,7 @@ const Profile = () => {
   const onEdit = (id: string) => {
     navigate(`/edit/${id}`);
   };
+
   return (
     <Container>
       <header>
