@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   isRegistered: false,
   isUpdate: false,
+  isForgotPassword: false,
 };
 
 export const authSlice = createSlice({
@@ -53,10 +54,25 @@ export const authSlice = createSlice({
       }
       state.loading = false;
     },
+    forgotPasswordRequest: (state, action: any) => {
+      state.loading = true;
+      state.isForgotPassword = false;
+    },
+    forgotPassword: (state, action: any) => {
+      state.isForgotPassword = action.isForgotPassword;
+      if (state.isForgotPassword === false) {
+        toast.error('Wrong Credentials');
+      }
+      toast.success('Password change link was sent');
+
+      state.loading = false;
+    },
   },
 });
 
 export const {
+  forgotPasswordRequest,
+  forgotPassword,
   updateRequest,
   update,
   logOut,

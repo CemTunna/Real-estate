@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import forgotPassword from '@/helpers/forgotPassword';
 import { useDispatch } from 'react-redux';
 import {
+  forgotPasswordRequest,
   loginRequest,
   registerRequest,
   updateRequest,
@@ -48,7 +48,7 @@ const useForm = () => {
     }
     // forgot password
     if (email!.length > 0 && name!.length === 0 && password!.length === 0) {
-      forgotPassword(formData.email!);
+      dispatch(forgotPasswordRequest(formData.email!));
     }
     // update
     if (email!.length > 0 && name!.length > 0 && password!.length === 0) {

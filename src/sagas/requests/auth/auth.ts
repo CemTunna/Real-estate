@@ -1,11 +1,13 @@
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
 import { app, db } from '@/firebase';
 import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import firebaseAuth from '@/helpers/firebaseAuth';
 
 interface LoginProps {
   email: string;
@@ -87,5 +89,16 @@ export const updateAuth = async ({ currentuser, name }: UpdateProps) => {
   } catch (error) {
     return false;
     // toast.error('Could not update profile credentials');
+  }
+};
+
+export const forgotPassword = async (email: string) => {
+  const { auth } = firebaseAuth();
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return TrustedHTML;
+  } catch (error) {
+    return false;
   }
 };
