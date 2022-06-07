@@ -15,9 +15,11 @@ import OAuth from '@/components/oauth/OAuth';
 const useStyles = makeStyles()((theme) => ({
   input: {
     width: '40rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '20rem',
+    },
   },
   link: {
-    marginTop: '1rem',
     color: theme.palette.secondary.main,
     transition: 'all .2s ease-out',
     letterSpacing: '0.5px',
@@ -98,7 +100,9 @@ const SignUp = () => {
         </BRealForm>
         <OAuth />
 
-        <Link to='/signIn'>Sign In</Link>
+        <Link to='/signIn' className={classes.link}>
+          Sign In
+        </Link>
       </Container>
     </Fragment>
   );

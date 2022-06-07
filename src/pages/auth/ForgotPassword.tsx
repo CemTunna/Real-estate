@@ -11,6 +11,9 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 const useStyles = makeStyles()((theme) => ({
   input: {
     width: '40rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '20rem',
+    },
   },
   link: {
     marginTop: '1rem',
