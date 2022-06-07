@@ -6,10 +6,13 @@ import BReText from './BReText';
 import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
 interface Props {
   listing: any;
   id: string;
   onDelete?: () => void;
+  onEdit?: (e: string) => void;
 }
 const useStyles = makeStyles()((theme) => ({
   listContainer: {
@@ -57,7 +60,7 @@ const useStyles = makeStyles()((theme) => ({
     marginRight: '2rem',
   },
 }));
-const BReListItem = ({ listing, id, onDelete }: Props) => {
+const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
   const { classes } = useStyles();
 
   return (
@@ -110,6 +113,11 @@ const BReListItem = ({ listing, id, onDelete }: Props) => {
       {onDelete && (
         <IconButton onClick={onDelete}>
           <DeleteIcon style={{ color: 'red' }} />
+        </IconButton>
+      )}
+      {onEdit && (
+        <IconButton onClick={() => onEdit(id)}>
+          <EditIcon />
         </IconButton>
       )}
     </ListItem>

@@ -142,6 +142,9 @@ const Profile = () => {
     setListings(newListArray);
     toast.success('Delete was successful');
   };
+  const onEdit = (id: string) => {
+    navigate(`/edit/${id}`);
+  };
   return (
     <Container>
       <header>
@@ -214,6 +217,7 @@ const Profile = () => {
               {listings.map((item: any) => (
                 <BReListItem
                   onDelete={() => onDelete(item.id)}
+                  onEdit={() => onEdit(item.id)}
                   key={item.id}
                   listing={item.data}
                   id={item.id}

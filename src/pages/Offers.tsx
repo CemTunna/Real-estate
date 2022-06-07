@@ -47,6 +47,8 @@ const Offers = () => {
   const params = useParams();
   const [listing, setListing] = useState<ListingArray[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [lastFetchedListing, setLastFetchedListing] = useState<any>(null);
+
   useEffect(() => {
     const getList = async () => {
       try {
@@ -58,6 +60,8 @@ const Offers = () => {
           limit(10)
         );
         const querySnap = await getDocs(q);
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetchedListing(lastVisible);
         let listings: any = [];
         querySnap.forEach((doc) => {
           return listings.push({
@@ -74,6 +78,35 @@ const Offers = () => {
     };
     getList();
   }, []);
+
+  const moreGetList = async () => {
+    try {
+      const listRef = collection(db, 'listings');
+      const q = query(
+        listRef,
+        where('offer', '==', true),
+        orderBy('timestamp', 'desc'),
+        startAfter(lastFetchedListing),
+        limit(10)
+      );
+      const querySnap = await getDocs(q);
+      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+      setLastFetchedListing(lastVisible);
+      let listings: any = [];
+      querySnap.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+
+      setListing((prevState: any) => [...prevState, ...listings]);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Couldn't get listings");
+    }
+  };
+
   return (
     <Container>
       <header>
@@ -82,13 +115,18 @@ const Offers = () => {
       {loading ? (
         <Loader />
       ) : listing && listing.length > 0 ? (
-        <main className={classes.main}>
-          <List className={classes.list}>
-            {listing.map((item) => (
-              <ReListItem listing={item.data} id={item.id} key={item.id} />
-            ))}
-          </List>
-        </main>
+        <>
+          <main className={classes.main}>
+            <List className={classes.list}>
+              {listing.map((item) => (
+                <ReListItem listing={item.data} id={item.id} key={item.id} />
+              ))}
+            </List>
+          </main>
+          <br />
+          <br />
+          {lastFetchedListing && <p onClick={moreGetList}>Load More</p>}
+        </>
       ) : (
         <BReText className={classes.text}>{`No listing`}</BReText>
       )}

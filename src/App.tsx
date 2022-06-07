@@ -17,7 +17,7 @@ import PrivateRoute from '@/components/PrivateRoute';
 import CreateListing from '@/pages/CreateListing';
 import Listing from '@/pages/Listing';
 import Contact from '@/pages/Contact';
-
+import Edit from '@/pages/Edit';
 function App() {
   return (
     <Layout>
@@ -38,6 +38,7 @@ function App() {
           </Route>
           <Route path='/category/:categoryType/:Id' element={<Listing />} />
           <Route path='/contact/:landlordId' element={<Contact />} />
+          <Route path='/edit/:Id' element={<Edit />} />
         </Routes>
       </Router>
       <ToastContainer autoClose={2000} />
