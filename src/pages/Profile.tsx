@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, ListItem, TextField, Typography } from '@mui/material';
+import { Grid, List, ListItem, TextField, Typography } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import Subtitle from '@/components/Subtitle';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -28,6 +28,7 @@ import {
 import { db } from '@/firebase';
 import BReListItem from '@/components/BReListItem';
 import { toast } from 'react-toastify';
+import BReText from '@/components/BReText';
 const useStyles = makeStyles()((theme) => ({
   title: {
     color: theme.palette.secondary.main,
@@ -35,16 +36,24 @@ const useStyles = makeStyles()((theme) => ({
   },
   btn: {
     marginTop: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '20rem',
+    },
   },
   mainStyle: {
-    width: '30rem',
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center',
+    },
   },
   bodyContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+    },
   },
   change: {
     fontWeight: 'bold',
@@ -68,6 +77,9 @@ const useStyles = makeStyles()((theme) => ({
     borderRadius: '5px',
     padding: '0.5rem',
     transition: 'all .2s ease-out',
+    [theme.breakpoints.down('sm')]: {
+      width: '20rem',
+    },
   },
   inputActive: {
     borderColor: theme.palette.secondary.main,
@@ -90,6 +102,19 @@ const useStyles = makeStyles()((theme) => ({
       border: '2px solid #333',
       borderRadius: '10px',
       fontSize: '20px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+    },
+  },
+  text: {
+    fontWeight: theme.typography.fontWeightBold,
+    marginTop: '1rem',
+  },
+  list: {
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
     },
   },
 }));
@@ -151,22 +176,21 @@ const Profile = () => {
         <Subtitle>My Profile</Subtitle>
       </header>
       <main className={classes.mainStyle}>
-        <Grid>
-          <Grid className={classes.bodyContainer}>
-            <Typography variant='h4' className={classes.title}>
-              Account Details
-            </Typography>
-            <IconButton
-              className={classes.change}
-              onClick={() => {
-                changedDetails && onSubmit();
-                setChangedDetails((prevState: boolean) => !prevState);
-              }}
-            >
-              {changedDetails ? <DoneIcon /> : <SettingsIcon />}
-            </IconButton>
-          </Grid>
+        <Grid className={classes.bodyContainer}>
+          <Typography variant='h4' className={classes.title}>
+            Account Details
+          </Typography>
+          <IconButton
+            className={classes.change}
+            onClick={() => {
+              changedDetails && onSubmit();
+              setChangedDetails((prevState: boolean) => !prevState);
+            }}
+          >
+            {changedDetails ? <DoneIcon /> : <SettingsIcon />}
+          </IconButton>
         </Grid>
+
         <Grid className={classes.footerContiner}>
           <BRealForm>
             <TextField
@@ -212,8 +236,8 @@ const Profile = () => {
         </BRealButton>
         {!loading && listings.length > 0 && (
           <>
-            <p>Listings:</p>
-            <ul>
+            <BReText className={classes.text}>Listings:</BReText>
+            <List className={classes.list}>
               {listings.map((item: any) => (
                 <BReListItem
                   onDelete={() => onDelete(item.id)}
@@ -223,7 +247,7 @@ const Profile = () => {
                   id={item.id}
                 />
               ))}
-            </ul>
+            </List>
           </>
         )}
       </main>

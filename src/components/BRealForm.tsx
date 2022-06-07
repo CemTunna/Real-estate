@@ -9,6 +9,9 @@ const useStyles = makeStyles()((theme) => ({
     padding: '1rem',
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center',
+    },
   },
 }));
 

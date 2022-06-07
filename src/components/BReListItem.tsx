@@ -28,6 +28,9 @@ const useStyles = makeStyles()((theme) => ({
       boxShadow:
         'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset',
     },
+    [theme.breakpoints.down('sm')]: {
+      marginRight: '0',
+    },
   },
   link: {
     display: 'flex',
@@ -35,29 +38,64 @@ const useStyles = makeStyles()((theme) => ({
     textDecoration: 'none',
     padding: 0,
     width: '100%',
-    height: '10rem',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   text: {
     fontWeight: theme.typography.fontWeightBold,
+    marginTop: '0.5rem',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '0.7rem',
+      marginTop: '0',
+    },
   },
   icon: {
     color: theme.palette.primary.dark,
     marginRight: '1rem',
   },
   bodyContainer: {
-    width: '80%',
+    width: '60%',
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '1rem',
+    padding: '0.5rem',
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+
+      flexDirection: 'column',
+      overflowY: 'scroll',
+    },
+  },
+  infoCon: {
+    width: '40%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: '100%',
+    },
+  },
+  subPart: {
+    display: 'flex',
+
+    justifyContent: 'center',
+    width: '60%',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '1rem',
+      width: '100%',
+    },
   },
   img: {
-    width: '20%',
+    width: '40%',
     height: '100%',
     margin: 0,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: '50%',
+    },
   },
   subContainer: {
     display: 'flex',
-    marginRight: '2rem',
+    width: '100%',
   },
 }));
 const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
@@ -75,9 +113,9 @@ const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
           alt={listing.name}
         />
         <Grid className={classes.bodyContainer}>
-          <Grid>
+          <Grid className={classes.infoCon}>
             <BReText>{listing.location}</BReText>
-            <BReText>{listing.name}</BReText>
+            <BReText className={classes.text}>{listing.name}</BReText>
             <BReText className={classes.text}>
               $
               {listing.offer
@@ -90,7 +128,7 @@ const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
               {listing.type === 'rent' && ' / Month'}
             </BReText>
           </Grid>
-          <Grid style={{ display: 'flex' }}>
+          <Grid className={classes.subPart}>
             <Grid className={classes.subContainer}>
               <BedIcon className={classes.icon} />
               <BReText>
@@ -110,7 +148,7 @@ const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
           </Grid>
         </Grid>
       </Link>
-      {onDelete && (
+      {/* {onDelete && (
         <IconButton onClick={onDelete}>
           <DeleteIcon style={{ color: 'red' }} />
         </IconButton>
@@ -119,7 +157,7 @@ const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
         <IconButton onClick={() => onEdit(id)}>
           <EditIcon />
         </IconButton>
-      )}
+      )} */}
     </ListItem>
   );
 };
