@@ -1,10 +1,11 @@
-import { Grid, ListItem, Typography } from '@mui/material';
+import { Grid, IconButton, ListItem, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
 import BReText from './BReText';
 import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
+import DeleteIcon from '@mui/icons-material/Delete';
 interface Props {
   listing: any;
   id: string;
@@ -106,8 +107,11 @@ const BReListItem = ({ listing, id, onDelete }: Props) => {
           </Grid>
         </Grid>
       </Link>
-      {/* {onDelete && <p>delete icon</p>} */}
-      {/* onDelete(listing.id,listing.name) */}
+      {onDelete && (
+        <IconButton onClick={onDelete}>
+          <DeleteIcon style={{ color: 'red' }} />
+        </IconButton>
+      )}
     </ListItem>
   );
 };

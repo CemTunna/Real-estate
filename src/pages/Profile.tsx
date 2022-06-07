@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Grid, ListItem, TextField, Typography } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import Subtitle from '@/components/Subtitle';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -17,6 +17,18 @@ import { useNavigate } from 'react-router-dom';
 import { logOut } from '@/state/reducers/authSlice';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import useForm from '@/hooks/useForm';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
+import { db } from '@/firebase';
+import BReListItem from '@/components/BReListItem';
+import { toast } from 'react-toastify';
 const useStyles = makeStyles()((theme) => ({
   title: {
     color: theme.palette.secondary.main,
@@ -95,16 +107,41 @@ const Profile = () => {
 
   const { currentuser } = firebaseAuth();
   const { name, email, setFormData, onChange, onSubmit } = useForm();
-
+  const [listings, setListings] = useState<any>();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
       name: currentuser.displayName!,
       email: currentuser.email!,
     }));
+    const fetchUserListings = async () => {
+      const listingRef = collection(db, 'listings');
+      const q = query(
+        listingRef,
+        where('userRef', '==', currentuser.uid),
+        orderBy('timestamp', 'desc')
+      );
+      const snapShot = await getDocs(q);
+      const listing: any = [];
+      snapShot.forEach((item) => {
+        return listing.push({
+          id: item.id,
+          data: item.data(),
+        });
+      });
+      setListings(listing);
+      setLoading(false);
+    };
+    fetchUserListings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentuser.email, currentuser.displayName]);
-
+  }, [currentuser.uid, currentuser.email, currentuser.displayName]);
+  const onDelete = async (id: string) => {
+    await deleteDoc(doc(db, 'listings', id));
+    const newListArray = listings.filter((item: any) => item.id !== id);
+    setListings(newListArray);
+    toast.success('Delete was successful');
+  };
   return (
     <Container>
       <header>
@@ -170,6 +207,21 @@ const Profile = () => {
         <BRealButton className={classes.btn} onClick={logout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </BRealButton>
+        {!loading && listings.length > 0 && (
+          <>
+            <p>Listings:</p>
+            <ul>
+              {listings.map((item: any) => (
+                <BReListItem
+                  onDelete={() => onDelete(item.id)}
+                  key={item.id}
+                  listing={item.data}
+                  id={item.id}
+                />
+              ))}
+            </ul>
+          </>
+        )}
       </main>
     </Container>
   );
