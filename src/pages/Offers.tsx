@@ -29,6 +29,9 @@ const useStyles = makeStyles()((theme) => ({
   list: {
     display: 'flex',
     flexWrap: 'wrap',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   main: {
     width: '100%',
@@ -39,11 +42,20 @@ const useStyles = makeStyles()((theme) => ({
     fontWeight: theme.typography.fontWeightBold,
     margin: '2rem',
   },
+  load: {
+    fontWeight: theme.typography.fontWeightBold,
+    letterSpacing: '0.5px',
+    color: theme.palette.primary.dark,
+    cursor: 'pointer',
+    transition: 'all .5s ease-out',
+    '&:hover': {
+      opacity: 0.6,
+    },
+  },
 }));
 
 const Offers = () => {
   const { classes } = useStyles();
-
   const params = useParams();
   const [listing, setListing] = useState<ListingArray[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -125,7 +137,11 @@ const Offers = () => {
           </main>
           <br />
           <br />
-          {lastFetchedListing && <p onClick={moreGetList}>Load More</p>}
+          {lastFetchedListing && (
+            <p className={classes.load} onClick={moreGetList}>
+              Load More...
+            </p>
+          )}
         </>
       ) : (
         <BReText className={classes.text}>{`No listing`}</BReText>

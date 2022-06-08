@@ -21,7 +21,7 @@ const useStyles = makeStyles()((theme) => ({
     },
     border: '1px solid #3333337d',
     [theme.breakpoints.down('sm')]: {
-      padding: 0,
+      padding: '0.2rem',
     },
   },
   icon: {
