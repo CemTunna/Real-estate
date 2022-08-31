@@ -6,6 +6,7 @@ interface Props {
   items: {
     navigateTo: string;
     navItemicon: React.ReactNode;
+    isCurrentUrl: boolean;
   }[];
 }
 const NavbarList = ({ items }: Props) => {

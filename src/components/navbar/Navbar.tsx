@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import useStyles from './NavbarStyles';
 import { Button, Grid, List, ListItem } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,6 +12,12 @@ const Navbar = () => {
   const { classes } = useStyles();
   const location = useLocation();
 
+  const matchRoute = useCallback(
+    (url: string) => {
+      return location.pathname === url;
+    },
+    [location]
+  );
   return (
     <header className={classes.navbar}>
       <Grid>
@@ -21,14 +27,17 @@ const Navbar = () => {
         <NavbarList
           items={[
             {
+              isCurrentUrl: matchRoute('/offers'),
               navigateTo: '/offers',
               navItemicon: <LocalOfferIcon fontSize='large' />,
             },
             {
+              isCurrentUrl: matchRoute('/'),
               navigateTo: '/',
               navItemicon: <ExploreIcon fontSize='large' />,
             },
             {
+              isCurrentUrl: matchRoute('/profile'),
               navigateTo: '/profile',
               navItemicon: <PersonOutlineIcon fontSize='large' />,
             },
