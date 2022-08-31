@@ -2,12 +2,12 @@ import Subtitle from '@/components/Subtitle';
 import { Grid, Slider, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import rentImgW500 from '@/assets/jpg/rent/rentCategory,w_500.jpg';
-import rentImgW1101 from '@/assets/jpg/rent/rentCategory,w_1101.jpg';
-import rentImgW1500 from '@/assets/jpg/rent/rentCategory,w_1500.jpg';
-import sellImgW500 from '@/assets/jpg/sell/sellCategory,w_500.jpg';
-import sellImgW1175 from '@/assets/jpg/sell/sellCategory,w_1175.jpg';
-import sellImgW1500 from '@/assets/jpg/sell/sellCategory,w_1500.jpg';
+import rentImgW500 from '@/assets/images/rent/rentCategory,w_500.jpg';
+import rentImgW1101 from '@/assets/images/rent/rentCategory,w_1101.jpg';
+import rentImgW1500 from '@/assets/images/rent/rentCategory,w_1500.jpg';
+import sellImgW500 from '@/assets/images/sell/sellCategory,w_500.jpg';
+import sellImgW1175 from '@/assets/images/sell/sellCategory,w_1175.jpg';
+import sellImgW1500 from '@/assets/images/sell/sellCategory,w_1500.jpg';
 import Container from '@/components/Container';
 import { makeStyles } from 'tss-react/mui';
 

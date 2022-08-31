@@ -10,7 +10,7 @@ import Profile from '@/containers/Profile';
 import Offers from '@/containers/Offers';
 import Category from '@/containers/Category';
 import ForgotPassword from '@/containers/auth/ForgotPassword';
-import Navbar from '@/components/layout/navbar/Navbar';
+import Navbar from '@/components/navbar/Navbar';
 import Layout from '@/components/Layout';
 import './App.css';
 import PrivateRoute from '@/components/PrivateRoute';
