@@ -3,21 +3,21 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Theme } from '@/theme/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Explore from '@/pages/Explore';
-import SignIn from '@/pages/auth/SignIn';
-import SignUp from '@/pages/auth/SignUp';
-import Profile from '@/pages/Profile';
-import Offers from '@/pages/Offers';
-import Category from '@/pages/Category';
-import ForgotPassword from '@/pages/auth/ForgotPassword';
-import Navbar from '@/components/Navbar';
+import Explore from '@/containers/Explore';
+import SignIn from '@/containers/auth/SignIn';
+import SignUp from '@/containers/auth/SignUp';
+import Profile from '@/containers/Profile';
+import Offers from '@/containers/Offers';
+import Category from '@/containers/Category';
+import ForgotPassword from '@/containers/auth/ForgotPassword';
+import Navbar from '@/components/layout/navbar/Navbar';
 import Layout from '@/components/Layout';
 import './App.css';
 import PrivateRoute from '@/components/PrivateRoute';
-import CreateListing from '@/pages/CreateListing';
-import Listing from '@/pages/Listing';
-import Contact from '@/pages/Contact';
-import Edit from '@/pages/Edit';
+import CreateListing from '@/containers/CreateListing';
+import Listing from '@/containers/Listing';
+import Contact from '@/containers/Contact';
+import Edit from '@/containers/Edit';
 function App() {
   return (
     <Layout>

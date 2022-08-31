@@ -25,10 +25,10 @@ import 'swiper/css/scrollbar';
 const useStyles = makeStyles()((theme) => ({
   main: {
     display: 'flex',
-    padding: '2rem',
-    // justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'column',
+    overflowX: 'hidden',
+    border: '4px solid red',
   },
   link: {
     fontWeight: theme.typography.fontWeightBold,
@@ -39,14 +39,17 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '50rem',
-    border: '1px solid red',
   },
   text: {
     fontWeight: theme.typography.fontWeightBold,
+    marginLeft: '1rem',
+    // [theme.breakpoints.down('sm')]: {
+    //   marginLeft: '0rem',
+
+    // },
   },
   for: {
-    textAlign: 'center',
-    margin: '1rem',
+    color: theme.palette.secondary.dark,
   },
   price: {
     border: '3px solid #e74c0e',
@@ -58,11 +61,19 @@ const useStyles = makeStyles()((theme) => ({
     textTransform: 'capitalize',
     fontSize: '20px',
     textAlign: 'center',
+    margin: '1rem',
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+      fontSize: '16px',
+      alignSelf: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '40%',
+      fontSize: '16px',
+      alignSelf: 'center',
+    },
   },
 
-  listItem: {
-    fontWeight: theme.typography.fontWeightBold,
-  },
   icon: {
     marginLeft: '10px',
   },
@@ -84,9 +95,52 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   imgContainer: {
-    height: '15rem',
-    width: '90vw',
+    height: '40vh',
+    width: '95vw',
     overflow: 'hidden',
+    borderRadius: '4px',
+    boxShadow:
+      'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
+  },
+  swiper: {
+    marginLeft: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  swiperSlider: {
+    marginLeft: '1.5rem',
+    [theme.breakpoints.down('md')]: {
+      marginLeft: '1rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '0.5rem',
+    },
+  },
+  list: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    border: '3px solid red',
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '30rem',
+      alignSelf: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '20rem',
+      alignSelf: 'center',
+    },
+  },
+  listItem: {
+    fontWeight: theme.typography.fontWeightBold,
+    flex: 1,
+    [theme.breakpoints.down('md')]: {
+      border: ' 3px solid red',
+    },
+  },
+  textContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
 }));
 
@@ -119,12 +173,14 @@ const Listing = () => {
   return (
     <main className={classes.main}>
       <Swiper
+        className={classes.swiper}
+        spaceBetween={50}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         slidesPerView={1}
         pagination={{ clickable: true }}
       >
         {listing.imgUrls.map((url: string, index: number) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} className={classes.swiperSlider}>
             <Grid
               className={classes.imgContainer}
               style={{
@@ -135,34 +191,51 @@ const Listing = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <Grid style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <Grid
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          marginTop: '2rem',
+          border: '1px solid  blue',
+        }}
+      >
         <Grid className={classes.container}>
-          <BReText className={classes.text}>
-            {listing.name} -{' $'}
-            {listing.offer
-              ? listing.discountedPrice
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-              : listing.regularPrice
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          </BReText>
-          <BReText className={classes.text}>{listing.location}</BReText>
-          <BReText className={classNames(classes.for, classes.text)}>
-            For {listing.type === 'rent' ? 'Rent' : 'Sale'}
-          </BReText>
+          <Grid className={classes.textContainer}>
+            <BReText className={classes.text}>
+              {listing.name} -{' $'}
+              {listing.offer
+                ? listing.discountedPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                : listing.regularPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            </BReText>
+            <BReText className={classes.text}>{listing.location}</BReText>
+            <BReText className={classNames(classes.for, classes.text)}>
+              For {listing.type === 'rent' ? 'Rent' : 'Sale'}
+            </BReText>
+          </Grid>
           {listing.offer && (
             <Typography className={classes.price}>
               ${listing.regularPrice - listing.discountedPrice} discount
             </Typography>
           )}
-          <List>
+          <List
+            className={classes.list}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              flexWrap: 'wrap',
+            }}
+          >
             <ListItem className={classes.listItem}>
               {listing.bedrooms > 1
                 ? `${listing.bedrooms} Bedrooms`
-                : '1 Bedroom'}{' '}
+                : '1 Bedroom'}
               <BedIcon className={classes.icon} fontSize='large' />
             </ListItem>
+
             <ListItem className={classes.listItem}>
               {listing.bathrooms > 1
                 ? `${listing.bathrooms} Bathrooms`
