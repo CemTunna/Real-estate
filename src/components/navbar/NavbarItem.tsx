@@ -18,6 +18,7 @@ const NavbarItem = ({ navItem }: Props) => {
   return (
     <ListItem className={classes.item}>
       <IconButton
+        disableRipple={true}
         className={
           isCurrentUrl
             ? classNames(classes.activeBtn, classes.btn)
