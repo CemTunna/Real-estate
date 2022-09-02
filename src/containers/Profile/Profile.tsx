@@ -22,7 +22,6 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/firebase';
 import BReListItem from '@/components/BReListItem';
-import { toast } from 'react-toastify';
 import useStyles from './ProfileStyles';
 import Form from '@/components/formm/Form';
 import Button from '@/components/ui/Button/Button';
@@ -41,13 +40,8 @@ const Profile = () => {
   const { classes } = useStyles();
   const { currentuser, auth } = firebaseAuth();
   const navigate = useNavigate();
-  const { name, email, setFormData, onChange, onSubmit, updateSubmit } =
-    useForm();
+  const { name, email, setFormData, onChange, updateSubmit } = useForm();
 
-  const logout = () => {
-    auth.signOut();
-    navigate('/login');
-  };
   useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
@@ -89,6 +83,10 @@ const Profile = () => {
     },
     [listings]
   );
+  const handleLogout = useCallback(() => {
+    auth.signOut();
+    navigate('/login');
+  }, []);
 
   return (
     <Container>
@@ -141,7 +139,7 @@ const Profile = () => {
           List your home or rent one!
           <ChevronRightIcon style={{ marginLeft: '10px' }} />
         </Link>
-        <Button className={classes.btn} onClick={logout}>
+        <Button className={classes.btn} onClick={handleLogout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </Button>
         {!loading && listings!.length > 0 && (
@@ -167,4 +165,4 @@ const Profile = () => {
   );
 };
 
-export default React.memo(Profile);
+export default Profile;
