@@ -1,40 +1,55 @@
-import React, { Fragment, useEffect, useState } from 'react';
 import { Grid, IconButton, InputAdornment } from '@mui/material';
-import useStyles from './LoginStyles';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Fragment, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
-import Subtitle from '@/components/Subtitle';
-import Form from '@/components/formm/Form';
 import Container from '@/components/Container';
+import Subtitle from '@/components/Subtitle';
 import OAuth from '@/components/oauth/OAuth';
+import useStyles from './SignupStyles';
+import Form from '@/components/formm/Form';
 import Input from '@/components/ui/input/Input';
 import Button from '@/components/ui/button/Button';
-const Login = () => {
+
+const SignUp = () => {
   const { classes } = useStyles();
 
-  const { email, password, onChange, showPassword, setShowPassword, onSubmit } =
-    useForm();
+  const {
+    onSubmit,
+    name,
+    email,
+    password,
+    onChange,
+    showPassword,
+    setShowPassword,
+  } = useForm();
 
   return (
     <Fragment>
       <Container>
         <header>
-          <Subtitle>Welcome Back</Subtitle>
+          <Subtitle>Welcome</Subtitle>
         </header>
         <Form onSubmit={onSubmit}>
           <Input
             autoFocus={true}
-            id='email'
-            onChange={onChange}
-            value={email!}
-            placeholder='Email'
-            type='email'
             className={classes.input}
+            onChange={onChange}
+            placeholder='Name'
+            id='name'
+            value={name!}
+            type='text'
           />
           <Input
             className={classes.input}
+            onChange={onChange}
+            placeholder='Email'
+            id='email'
+            value={email!}
+            type='email'
+          />
+          <Input
             placeholder='Password'
             id='password'
             value={password!}
@@ -54,22 +69,23 @@ const Login = () => {
           />
 
           <Link to='/forgotPassword' className={classes.link}>
-            Can't Sign In ?
+            Forgot Password
           </Link>
           <Grid style={{ display: 'flex' }}>
             <Button className={classes.btn} type='submit'>
-              Sign In
+              Sign Up
               <ArrowForwardIosIcon />
             </Button>
           </Grid>
         </Form>
         <OAuth />
-        <Link to='/signUp' className={classes.link}>
-          Sign Up
+
+        <Link to='/login' className={classes.link}>
+          Log In
         </Link>
       </Container>
     </Fragment>
   );
 };
 
-export default Login;
+export default SignUp;
