@@ -42,7 +42,7 @@ const OAuth = () => {
   return (
     <Container>
       <Typography className={classes.text}>
-        {location.pathname === '/signUp'
+        {location.pathname === '/register'
           ? 'YOU CAN ALSO CREATE AN ACCOUNT WITH'
           : 'YOU CAN ALSO LOG IN WITH'}
       </Typography>

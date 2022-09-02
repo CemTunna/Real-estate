@@ -1,18 +1,18 @@
 import { Grid, IconButton, InputAdornment } from '@mui/material';
-import { Fragment, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import Container from '@/components/Container';
 import Subtitle from '@/components/Subtitle';
 import OAuth from '@/components/oauth/OAuth';
-import useStyles from './SignupStyles';
+import useStyles from './RegisterStyles';
 import Form from '@/components/formm/Form';
 import Input from '@/components/ui/input/Input';
 import Button from '@/components/ui/button/Button';
 
-const SignUp = () => {
+const Register = () => {
   const { classes } = useStyles();
 
   const {
@@ -23,6 +23,7 @@ const SignUp = () => {
     onChange,
     showPassword,
     setShowPassword,
+    registerSubmit,
   } = useForm();
 
   return (
@@ -31,7 +32,7 @@ const SignUp = () => {
         <header>
           <Subtitle>Welcome</Subtitle>
         </header>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={registerSubmit}>
           <Input
             autoFocus={true}
             className={classes.input}
@@ -88,4 +89,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;

@@ -64,7 +64,7 @@ const Login = () => {
           </Grid>
         </Form>
         <OAuth />
-        <Link to='/signUp' className={classes.link}>
+        <Link to='/register' className={classes.link}>
           Sign Up
         </Link>
       </Container>

@@ -27,12 +27,7 @@ const useForm = () => {
       [e.target.id]: e.target.value,
     }));
   };
-
-  const onSubmit = (e?: any) => {
-    if (e && e.preventDefault) {
-      e.preventDefault();
-    }
-    // register
+  const registerSubmit = () => {
     if (email!.length > 0 && password!.length > 0 && name!.length > 0) {
       email &&
         password &&
@@ -40,6 +35,12 @@ const useForm = () => {
         register({ email, password, name, formData });
       navigate('/');
     }
+  };
+  const onSubmit = (e?: any) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+
     // login
     if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
       email && password && login({ email, password });
@@ -64,6 +65,7 @@ const useForm = () => {
     showPassword,
     setShowPassword,
     setFormData,
+    registerSubmit,
   };
 };
 

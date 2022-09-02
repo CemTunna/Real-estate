@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Theme } from '@/theme/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Explore from '@/containers/Explore';
-import SignUp from '@/containers/auth/SignUp';
+import Register from '@/containers/Register/Register';
 import Profile from '@/containers/Profile';
 import Offers from '@/containers/Offers';
 import Category from '@/containers/Category';
@@ -31,7 +31,7 @@ function App() {
             <Route path='/profile' element={<Profile />} />
           </Route>
           <Route path='/login' element={<Login />} />
-          <Route path='/signUp' element={<SignUp />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/createListing' element={<PrivateRoute />}>
             <Route path='/createListing' element={<CreateListing />} />
