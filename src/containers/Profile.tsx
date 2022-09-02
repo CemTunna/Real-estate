@@ -127,7 +127,7 @@ const Profile = () => {
   const [changedDetails, setChangedDetails] = useState(false);
   const logout = () => {
     auth.signOut();
-    navigate('/signIn');
+    navigate('/login');
   };
 
   const { name, email, setFormData, onChange, onSubmit } = useForm();

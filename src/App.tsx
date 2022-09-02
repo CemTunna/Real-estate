@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Theme } from '@/theme/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Explore from '@/containers/Explore';
-import SignIn from '@/containers/auth/SignIn';
 import SignUp from '@/containers/auth/SignUp';
 import Profile from '@/containers/Profile';
 import Offers from '@/containers/Offers';
@@ -18,6 +17,7 @@ import CreateListing from '@/containers/CreateListing';
 import Listing from '@/containers/Listing';
 import Contact from '@/containers/Contact';
 import Edit from '@/containers/Edit';
+import Login from '@/containers/Login/Login';
 function App() {
   return (
     <Layout>
@@ -30,7 +30,7 @@ function App() {
           <Route path='/profile' element={<PrivateRoute />}>
             <Route path='/profile' element={<Profile />} />
           </Route>
-          <Route path='/signIn' element={<SignIn />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/signUp' element={<SignUp />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/createListing' element={<PrivateRoute />}>

@@ -111,7 +111,7 @@ const CreateListing = () => {
         if (user) {
           setFormData({ ...formData, userRef: user.uid });
         } else {
-          navigate('/signIn');
+          navigate('/login');
         }
       });
     }

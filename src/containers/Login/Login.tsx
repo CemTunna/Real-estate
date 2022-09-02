@@ -6,11 +6,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import Subtitle from '@/components/Subtitle';
-import BRealButton from '@/components/BRealButton';
 import Form from '@/components/formm/Form';
 import Container from '@/components/Container';
 import OAuth from '@/components/oauth/OAuth';
 import Input from '@/components/ui/input/Input';
+import Button from '@/components/ui/button/Button';
 const Login = () => {
   const { classes } = useStyles();
 
@@ -57,10 +57,10 @@ const Login = () => {
             Can't Sign In ?
           </Link>
           <Grid style={{ display: 'flex' }}>
-            <BRealButton className={classes.btn} type='submit'>
+            <Button className={classes.btn} type='submit'>
               Sign In
               <ArrowForwardIosIcon />
-            </BRealButton>
+            </Button>
           </Grid>
         </Form>
         <OAuth />

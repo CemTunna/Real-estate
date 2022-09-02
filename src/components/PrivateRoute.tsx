@@ -18,7 +18,7 @@ const PrivateRoute = () => {
       </Box>
     );
   }
-  return loggedIn ? <Outlet /> : <Navigate to='/signIn' />;
+  return loggedIn ? <Outlet /> : <Navigate to='/login' />;
 };
 
 export default PrivateRoute;

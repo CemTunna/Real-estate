@@ -100,8 +100,8 @@ const SignUp = () => {
         </BRealForm>
         <OAuth />
 
-        <Link to='/signIn' className={classes.link}>
-          Sign In
+        <Link to='/login' className={classes.link}>
+          Log In
         </Link>
       </Container>
     </Fragment>
