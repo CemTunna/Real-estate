@@ -9,8 +9,8 @@ import Subtitle from '@/components/Subtitle';
 import Form from '@/components/formm/Form';
 import Container from '@/components/Container';
 import OAuth from '@/components/oauth/OAuth';
-import Input from '@/components/ui/input/Input';
-import Button from '@/components/ui/button/Button';
+import Input from '@/components/ui/Input/Input';
+import Button from '@/components/ui/Button/Button';
 const Login = () => {
   const { classes } = useStyles();
 

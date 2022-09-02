@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, List, ListItem, TextField, Typography } from '@mui/material';
-import { makeStyles } from 'tss-react/mui';
-import Subtitle from '@/components/Subtitle';
+import { Grid, List, ListItem } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DoneIcon from '@mui/icons-material/Done';
 import { IconButton } from '@mui/material';
 import classNames from 'classnames';
 import Container from '@/components/Container';
-import BRealButton from '@/components/BRealButton';
-import BRealForm from '@/components/BRealForm';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import useForm from '@/hooks/useForm';
@@ -28,96 +23,13 @@ import {
 import { db } from '@/firebase';
 import BReListItem from '@/components/BReListItem';
 import { toast } from 'react-toastify';
-import BReText from '@/components/BReText';
-const useStyles = makeStyles()((theme) => ({
-  title: {
-    color: theme.palette.secondary.main,
-    letterSpacing: '0.5px',
-  },
-  btn: {
-    marginTop: '1rem',
-    [theme.breakpoints.down('sm')]: {
-      width: '20rem',
-    },
-  },
-  mainStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.down('sm')]: {
-      alignItems: 'center',
-    },
-  },
-  bodyContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: 'center',
-    },
-  },
-  change: {
-    fontWeight: 'bold',
-    transition: 'all .2s ease-out',
-    color: theme.palette.primary.dark,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.light,
-      color: theme.palette.secondary.main,
-    },
-  },
-  footerContiner: {
-    marginTop: '1rem',
-  },
-
-  input: {
-    letterSpacing: '0.5px',
-    marginBottom: '1rem',
-    fontWeight: 'normal',
-    border: '1px solid',
-    borderColor: '#8886866f',
-    borderRadius: '5px',
-    padding: '0.5rem',
-    transition: 'all .2s ease-out',
-    [theme.breakpoints.down('sm')]: {
-      width: '20rem',
-    },
-  },
-  inputActive: {
-    borderColor: theme.palette.secondary.main,
-    '&:hover': {
-      borderColor: theme.palette.primary.light,
-    },
-  },
-  link: {
-    textDecoration: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '1rem',
-    color: theme.palette.secondary.main,
-    textTransform: 'capitalize',
-    fontWeight: theme.typography.fontWeightBold,
-    border: '2px solid transparent',
-    transition: 'all .5s ease-out',
-    padding: '0.5rem',
-    '&:hover': {
-      border: '2px solid #333',
-      borderRadius: '10px',
-      fontSize: '20px',
-    },
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: 'center',
-    },
-  },
-  text: {
-    fontWeight: theme.typography.fontWeightBold,
-    marginTop: '1rem',
-  },
-  list: {
-    display: 'flex',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },
-  },
-}));
+import useStyles from './ProfileStyles';
+import Form from '@/components/formm/Form';
+import Button from '@/components/ui/Button/Button';
+import H3 from '@/components/ui/H3/H3';
+import H4 from '@/components/ui/H4/H4';
+import Input from '@/components/ui/Input/Input';
+import Text from '@/components/ui/Text/Text';
 
 const Profile = () => {
   const { classes } = useStyles();
@@ -173,13 +85,11 @@ const Profile = () => {
   return (
     <Container>
       <header>
-        <Subtitle>My Profile</Subtitle>
+        <H3>My Profile</H3>
       </header>
       <main className={classes.mainStyle}>
         <Grid className={classes.bodyContainer}>
-          <Typography variant='h4' className={classes.title}>
-            Account Details
-          </Typography>
+          <H4>Account Details</H4>
           <IconButton
             className={classes.change}
             onClick={() => {
@@ -192,12 +102,8 @@ const Profile = () => {
         </Grid>
 
         <Grid className={classes.footerContiner}>
-          <BRealForm>
-            <TextField
-              InputProps={{
-                disableUnderline: true,
-              }}
-              variant='standard'
+          <Form>
+            <Input
               type='text'
               id='name'
               className={
@@ -206,14 +112,10 @@ const Profile = () => {
                   : classNames(classes.input, classes.inputActive)
               }
               disabled={!changedDetails}
-              value={name}
+              value={name!}
               onChange={onChange}
             />
-            <TextField
-              InputProps={{
-                disableUnderline: true,
-              }}
-              variant='standard'
+            <Input
               type='email'
               id='email'
               className={
@@ -222,21 +124,21 @@ const Profile = () => {
                   : classNames(classes.input, classes.inputActive)
               }
               disabled={!changedDetails}
-              value={email}
+              value={email!}
               onChange={onChange}
             />
-          </BRealForm>
+          </Form>
         </Grid>
         <Link to='/createListing' className={classes.link}>
           List your home or rent one!
           <ChevronRightIcon style={{ marginLeft: '10px' }} />
         </Link>
-        <BRealButton className={classes.btn} onClick={logout}>
+        <Button className={classes.btn} onClick={logout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
-        </BRealButton>
+        </Button>
         {!loading && listings.length > 0 && (
           <>
-            <BReText className={classes.text}>Listings:</BReText>
+            <Text className={classes.text}>Listings:</Text>
             <List className={classes.list}>
               {listings.map((item: any) => (
                 <BReListItem

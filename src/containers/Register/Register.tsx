@@ -9,8 +9,8 @@ import Subtitle from '@/components/Subtitle';
 import OAuth from '@/components/oauth/OAuth';
 import useStyles from './RegisterStyles';
 import Form from '@/components/formm/Form';
-import Input from '@/components/ui/input/Input';
-import Button from '@/components/ui/button/Button';
+import Input from '@/components/ui/Input/Input';
+import Button from '@/components/ui/Button/Button';
 
 const Register = () => {
   const { classes } = useStyles();
