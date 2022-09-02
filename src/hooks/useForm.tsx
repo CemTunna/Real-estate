@@ -58,6 +58,17 @@ const useForm = () => {
       }
     }
   };
+
+  const updateSubmit = async (e?: any) => {
+    preventReloadPage(e);
+    try {
+      if (name) {
+        await updateAuth({ currentuser, name });
+      }
+    } catch (error) {
+      toast.error('Something went wrong');
+    }
+  };
   const onSubmit = (e?: any) => {
     if (e && e.preventDefault) {
       e.preventDefault();
@@ -66,10 +77,6 @@ const useForm = () => {
     // forgot password
     if (email!.length > 0 && name!.length === 0 && password!.length === 0) {
       email && forgotPassword(formData.email!);
-    }
-    // update
-    if (email!.length > 0 && name!.length > 0 && password!.length === 0) {
-      name && updateAuth({ currentuser, name });
     }
   };
 
@@ -84,6 +91,7 @@ const useForm = () => {
     setFormData,
     registerSubmit,
     loginSubmit,
+    updateSubmit,
   };
 };
 

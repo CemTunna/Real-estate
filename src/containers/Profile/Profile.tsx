@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Grid, List, ListItem } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -30,28 +30,32 @@ import H3 from '@/components/ui/H3/H3';
 import H4 from '@/components/ui/H4/H4';
 import Input from '@/components/ui/Input/Input';
 import Text from '@/components/ui/Text/Text';
+import editListing from './profileHelpers/edit';
+import deleteListing from './profileHelpers/delete';
 
 const Profile = () => {
+  const [changedDetails, setChangedDetails] = useState(false);
+  const [listings, setListings] = useState<[]>();
+  const [loading, setLoading] = useState(true);
+
   const { classes } = useStyles();
   const { currentuser, auth } = firebaseAuth();
-
   const navigate = useNavigate();
-  const [changedDetails, setChangedDetails] = useState(false);
+  const { name, email, setFormData, onChange, onSubmit, updateSubmit } =
+    useForm();
+
   const logout = () => {
     auth.signOut();
     navigate('/login');
   };
-
-  const { name, email, setFormData, onChange, onSubmit } = useForm();
-  const [listings, setListings] = useState<any>();
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
       name: currentuser.displayName!,
       email: currentuser.email!,
     }));
-    const fetchUserListings = async () => {
+
+    (async () => {
       const listingRef = collection(db, 'listings');
       const q = query(
         listingRef,
@@ -68,19 +72,23 @@ const Profile = () => {
       });
       setListings(listing);
       setLoading(false);
-    };
-    fetchUserListings();
+    })();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentuser.uid, currentuser.email, currentuser.displayName]);
-  const onDelete = async (id: string) => {
-    await deleteDoc(doc(db, 'listings', id));
-    const newListArray = listings.filter((item: any) => item.id !== id);
-    setListings(newListArray);
-    toast.success('Delete was successful');
-  };
-  const onEdit = (id: string) => {
-    navigate(`/edit/${id}`);
-  };
+
+  const handleEdit = useCallback(
+    (id: string, navigate: (route: string) => void) => {
+      editListing(id, navigate);
+    },
+    []
+  );
+  const handleDelete = useCallback(
+    (id: string, listings: [], setListings: Function) => {
+      deleteListing(id, listings, setListings);
+    },
+    [listings]
+  );
 
   return (
     <Container>
@@ -93,7 +101,7 @@ const Profile = () => {
           <IconButton
             className={classes.change}
             onClick={() => {
-              changedDetails && onSubmit();
+              changedDetails && updateSubmit();
               setChangedDetails((prevState: boolean) => !prevState);
             }}
           >
@@ -136,14 +144,16 @@ const Profile = () => {
         <Button className={classes.btn} onClick={logout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </Button>
-        {!loading && listings.length > 0 && (
+        {!loading && listings!.length > 0 && (
           <>
             <Text className={classes.text}>Listings:</Text>
             <List className={classes.list}>
-              {listings.map((item: any) => (
+              {listings!.map((item: any) => (
                 <BReListItem
-                  onDelete={() => onDelete(item.id)}
-                  onEdit={() => onEdit(item.id)}
+                  onDelete={() =>
+                    handleDelete(item.id, listings!, setListings!)
+                  }
+                  onEdit={() => handleEdit(item.id, navigate)}
                   key={item.id}
                   listing={item.data}
                   id={item.id}
