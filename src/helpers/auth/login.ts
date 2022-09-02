@@ -7,17 +7,13 @@ interface LoginProps {
   password: string;
 }
 export const login = async ({ email, password }: LoginProps) => {
-  try {
-    const { auth } = firebaseAuth();
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    if (userCredential.user) {
-      return true;
-    }
-  } catch (error) {
-    toast.error('Something went wrong');
+  const { auth } = firebaseAuth();
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  if (userCredential.user) {
+    return true;
   }
 };

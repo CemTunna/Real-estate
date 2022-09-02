@@ -16,7 +16,6 @@ const Register = () => {
   const { classes } = useStyles();
 
   const {
-    onSubmit,
     name,
     email,
     password,

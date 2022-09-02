@@ -14,8 +14,14 @@ import Button from '@/components/ui/button/Button';
 const Login = () => {
   const { classes } = useStyles();
 
-  const { email, password, onChange, showPassword, setShowPassword, onSubmit } =
-    useForm();
+  const {
+    loginSubmit,
+    email,
+    password,
+    onChange,
+    showPassword,
+    setShowPassword,
+  } = useForm();
 
   return (
     <Fragment>
@@ -23,7 +29,7 @@ const Login = () => {
         <header>
           <Subtitle>Welcome Back</Subtitle>
         </header>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={loginSubmit}>
           <Input
             autoFocus={true}
             id='email'

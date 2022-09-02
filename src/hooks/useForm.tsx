@@ -6,6 +6,7 @@ import { register } from '@/helpers/auth/register';
 import { login } from '@/helpers/auth/login';
 import { forgotPassword } from '@/helpers/auth/forgotPassword';
 import { updateAuth } from '@/helpers/auth/update';
+import { toast } from 'react-toastify';
 interface Form {
   email?: string;
   password?: string;
@@ -27,7 +28,13 @@ const useForm = () => {
       [e.target.id]: e.target.value,
     }));
   };
-  const registerSubmit = () => {
+  const preventReloadPage = (e?: any) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+  };
+  const registerSubmit = (e?: any) => {
+    preventReloadPage(e);
     if (email!.length > 0 && password!.length > 0 && name!.length > 0) {
       email &&
         password &&
@@ -36,16 +43,25 @@ const useForm = () => {
       navigate('/');
     }
   };
+  const loginSubmit = async (e?: any) => {
+    preventReloadPage(e);
+
+    if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
+      try {
+        if (email && password) {
+          await login({ email, password });
+        }
+        navigate('/');
+      } catch (error) {
+        toast.error('Something went wrong');
+      }
+    }
+  };
   const onSubmit = (e?: any) => {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
 
-    // login
-    if (email!.length > 0 && password!.length > 0 && name!.length === 0) {
-      email && password && login({ email, password });
-      navigate('/');
-    }
     // forgot password
     if (email!.length > 0 && name!.length === 0 && password!.length === 0) {
       email && forgotPassword(formData.email!);
@@ -66,6 +82,7 @@ const useForm = () => {
     setShowPassword,
     setFormData,
     registerSubmit,
+    loginSubmit,
   };
 };
 
