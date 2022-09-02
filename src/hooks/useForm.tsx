@@ -33,14 +33,15 @@ const useForm = () => {
       e.preventDefault();
     }
   };
-  const registerSubmit = (e?: any) => {
+  const registerSubmit = async (e?: any) => {
     preventReloadPage(e);
-    if (email!.length > 0 && password!.length > 0 && name!.length > 0) {
-      email &&
-        password &&
-        name &&
-        register({ email, password, name, formData });
-      navigate('/');
+    try {
+      if (email && password && name) {
+        await register({ email, password, name, formData });
+        navigate('/');
+      }
+    } catch (error) {
+      toast.error('Password should be at least 6 characters');
     }
   };
   const loginSubmit = async (e?: any) => {

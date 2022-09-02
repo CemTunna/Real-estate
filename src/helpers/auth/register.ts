@@ -24,23 +24,17 @@ export const register = async ({
   formData,
 }: RegisterProps) => {
   const { auth } = firebaseAuth();
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    updateProfile(auth.currentUser!, {
-      displayName: name,
-    });
-    const dataCopy: DataCopy = { ...formData };
-    delete dataCopy.password;
-    dataCopy.timestamp = serverTimestamp();
-
-    await setDoc(doc(db, 'users', user.uid), dataCopy);
-  } catch (error) {
-    toast.error('Something went wrong');
-  }
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential.user;
+  updateProfile(auth.currentUser!, {
+    displayName: name,
+  });
+  const dataCopy: DataCopy = { ...formData };
+  delete dataCopy.password;
+  dataCopy.timestamp = serverTimestamp();
+  await setDoc(doc(db, 'users', user.uid), dataCopy);
 };
