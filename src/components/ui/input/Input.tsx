@@ -3,19 +3,21 @@ import classNames from 'classnames';
 import useStyles from './InputStyles';
 import InputProps from './InputInterface';
 const Input = ({
-  className,
+  className = '',
   onChange,
-  value,
-  placeholder,
-  type,
-  id,
-  propss,
-  autoFocus,
-  required,
+  value = '',
+  placeholder = '',
+  type = 'text',
+  id = '',
+  propss = {},
+  autoFocus = false,
+  required = false,
+  disabled = false,
 }: InputProps) => {
   const { classes } = useStyles();
   return (
     <TextField
+      disabled={disabled}
       required={required}
       autoFocus={autoFocus}
       variant='standard'

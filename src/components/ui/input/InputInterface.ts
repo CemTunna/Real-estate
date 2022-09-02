@@ -5,8 +5,9 @@ interface InputProps {
   type: string;
   id: string;
   className?: string;
-  propss?: any;
+  propss?: object;
   autoFocus?: boolean;
   required?: boolean;
+  disabled?: boolean;
 }
 export default InputProps;
