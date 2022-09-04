@@ -18,8 +18,8 @@ const GoogleAuth = () => {
     <Container>
       <Typography className={classes.text}>
         {location.pathname === '/register'
-          ? 'YOU CAN ALSO CREATE AN ACCOUNT WITH'
-          : 'YOU CAN ALSO LOG IN WITH'}
+          ? 'You Can Also Create An Account With'
+          : 'You Can Also Log In With'}
       </Typography>
       <Button onClick={onGoogleClick} className={classes.btn}>
         <img src={googleIcon} alt='google' className={classes.img} />
