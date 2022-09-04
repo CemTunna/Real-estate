@@ -7,7 +7,7 @@ const Category = React.lazy(() => import('@/containers/Category'));
 const Login = React.lazy(() => import('@/containers/Login/Login'));
 const Register = React.lazy(() => import('@/containers/Register/Register'));
 const ForgotPassword = React.lazy(
-  () => import('@/containers/auth/ForgotPassword')
+  () => import('@/containers/ForgotPassword/ForgotPassword')
 );
 const Listing = React.lazy(() => import('@/containers/Listing'));
 const Edit = React.lazy(() => import('@/containers/Edit'));

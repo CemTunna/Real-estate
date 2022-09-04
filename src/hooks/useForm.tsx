@@ -69,19 +69,19 @@ const useForm = () => {
       toast.error('Something went wrong');
     }
   };
-  const onSubmit = (e?: any) => {
-    if (e && e.preventDefault) {
-      e.preventDefault();
-    }
-
-    // forgot password
-    if (email!.length > 0 && name!.length === 0 && password!.length === 0) {
-      email && forgotPassword(formData.email!);
+  const forgotPasswordSubmit = async (e?: any) => {
+    preventReloadPage(e);
+    try {
+      if (email) {
+        await forgotPassword(formData.email!);
+        toast.success('Link was sent');
+      }
+    } catch (error) {
+      toast.error("Can't send link");
     }
   };
 
   return {
-    onSubmit,
     email,
     password,
     name,
@@ -92,6 +92,7 @@ const useForm = () => {
     registerSubmit,
     loginSubmit,
     updateSubmit,
+    forgotPasswordSubmit,
   };
 };
 

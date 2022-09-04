@@ -134,7 +134,7 @@ const Profile = () => {
         <Button className={classes.btn} onClick={handleLogout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </Button>
-        {/* {!loading && listings!.length > 0 && (
+        {!loading && listings!.length > 0 && (
           <>
             <Text className={classes.text}>Listings:</Text>
             <List className={classes.list}>
@@ -151,7 +151,7 @@ const Profile = () => {
               ))}
             </List>
           </>
-        )} */}
+        )}
       </main>
     </Container>
   );
