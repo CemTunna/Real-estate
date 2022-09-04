@@ -5,14 +5,19 @@ import googleIcon from './googleIcon.svg';
 import Container from '@/components/Container';
 import googleAuth from '@/helpers/googleAuth';
 import useStyles from './GoogleAuthStyles';
+import { toast } from 'react-toastify';
 const GoogleAuth = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { classes } = useStyles();
 
   const onGoogleClick = async () => {
-    googleAuth();
-    navigate('/');
+    try {
+      await googleAuth();
+      navigate('/');
+    } catch (error) {
+      toast.error("Couldn't Authorize");
+    }
   };
   return (
     <Container>
