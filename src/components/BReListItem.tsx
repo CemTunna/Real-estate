@@ -2,7 +2,7 @@ import { Grid, IconButton, ListItem, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
-import BReText from './BReText';
+import Text from './Text/Text';
 import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -120,9 +120,9 @@ const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
         />
         <Grid className={classes.bodyContainer}>
           <Grid className={classes.infoCon}>
-            <BReText>{listing.location}</BReText>
-            <BReText className={classes.text}>{listing.name}</BReText>
-            <BReText className={classes.text}>
+            <Text>{listing.location}</Text>
+            <Text className={classes.text}>{listing.name}</Text>
+            <Text className={classes.text}>
               $
               {listing.offer
                 ? listing.discountedPrice
@@ -132,24 +132,24 @@ const BReListItem = ({ listing, id, onDelete, onEdit }: Props) => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               {listing.type === 'rent' && ' / Month'}
-            </BReText>
+            </Text>
           </Grid>
           <Grid className={classes.subPart}>
             <Grid className={classes.subContainer}>
               <BedIcon className={classes.icon} />
-              <BReText>
+              <Text>
                 {listing.bedrooms > 1
                   ? `${listing.bedrooms} Bedrooms`
                   : '1 Bedrom'}
-              </BReText>
+              </Text>
             </Grid>
             <Grid className={classes.subContainer}>
               <BathtubIcon className={classes.icon} />
-              <BReText>
+              <Text>
                 {listing.bathrooms > 1
                   ? `${listing.bathrooms} bathrooms`
                   : '1 Bathroom'}
-              </BReText>
+              </Text>
             </Grid>
           </Grid>
         </Grid>

@@ -19,7 +19,7 @@ import { Listing } from '@/interfaces/Listing';
 import { makeStyles } from 'tss-react/mui';
 import Container from '@/components/Container';
 import Loader from '@/components/Loader';
-import BReText from '@/components/BReText';
+import Text from '@/components/ui/Text/Text';
 interface ListingArray {
   data: Listing;
   id: string;
@@ -131,9 +131,9 @@ const Category = () => {
           {lastFetchedListing && <p onClick={moreGetList}>Load More</p>}
         </>
       ) : (
-        <BReText
+        <Text
           className={classes.text}
-        >{`No listing for ${params.categoryType}`}</BReText>
+        >{`No listing for ${params.categoryType}`}</Text>
       )}
     </Container>
   );

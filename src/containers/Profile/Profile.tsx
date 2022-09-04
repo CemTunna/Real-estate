@@ -15,7 +15,7 @@ import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '@/firebase';
 import BReListItem from '@/components/BReListItem';
 import useStyles from './ProfileStyles';
-import Form from '@/components/formm/Form';
+import Form from '@/components/form/Form';
 import Button from '@/components/ui/Button/Button';
 import H3 from '@/components/ui/H3/H3';
 import H4 from '@/components/ui/H4/H4';

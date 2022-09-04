@@ -6,11 +6,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import Container from '@/components/Container';
 import Subtitle from '@/components/Subtitle';
-import OAuth from '@/components/oauth/OAuth';
 import useStyles from './RegisterStyles';
-import Form from '@/components/formm/Form';
+import Form from '@/components/form/Form';
 import Input from '@/components/ui/Input/Input';
 import Button from '@/components/ui/Button/Button';
+import GoogleAuth from '@/components/GoogleAuth/GoogleAuth';
 
 const Register = () => {
   const { classes } = useStyles();
@@ -78,7 +78,7 @@ const Register = () => {
             </Button>
           </Grid>
         </Form>
-        <OAuth />
+        <GoogleAuth />
 
         <Link to='/login' className={classes.link}>
           Log In

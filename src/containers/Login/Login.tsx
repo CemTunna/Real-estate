@@ -6,11 +6,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useForm from '@/hooks/useForm';
 import Subtitle from '@/components/Subtitle';
-import Form from '@/components/formm/Form';
+import Form from '@/components/form/Form';
 import Container from '@/components/Container';
-import OAuth from '@/components/oauth/OAuth';
 import Input from '@/components/ui/Input/Input';
 import Button from '@/components/ui/Button/Button';
+import GoogleAuth from '@/components/GoogleAuth/GoogleAuth';
 const Login = () => {
   const { classes } = useStyles();
 
@@ -69,7 +69,7 @@ const Login = () => {
             </Button>
           </Grid>
         </Form>
-        <OAuth />
+        <GoogleAuth />
         <Link to='/register' className={classes.link}>
           Sign Up
         </Link>

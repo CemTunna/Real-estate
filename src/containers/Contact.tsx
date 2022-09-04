@@ -6,9 +6,7 @@ import { toast } from 'react-toastify';
 import Subtitle from '@/components/Subtitle';
 import { Grid, TextareaAutosize } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import BReText from '@/components/BReText';
-import BReFormLabel from '@/components/form/BReFormLabel';
-import BRealFormButton from '@/components/form/BRealFormButton';
+import Text from '@/components/ui/Text/Text';
 
 const useStyles = makeStyles()((theme) => ({
   contact: {
@@ -65,16 +63,14 @@ const Contact = () => {
       {landlord !== null && (
         <main>
           <Grid>
-            <BReText className={classes.contact}>
-              Contact {landlord?.name!}
-            </BReText>
+            <Text className={classes.contact}>Contact {landlord?.name!}</Text>
           </Grid>
 
           <form>
             <Grid>
-              <BReFormLabel className={classes.label} label='message'>
+              {/* <BReFormLabel className={classes.label} label='message'>
                 Message
-              </BReFormLabel>
+              </BReFormLabel> */}
 
               <TextareaAutosize
                 minRows={3}

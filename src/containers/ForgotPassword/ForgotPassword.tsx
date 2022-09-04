@@ -5,7 +5,7 @@ import Container from '@/components/Container';
 import useForm from '@/hooks/useForm';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import useStyles from './ForgotPasswordStyles';
-import Form from '@/components/formm/Form';
+import Form from '@/components/form/Form';
 import Input from '@/components/ui/Input/Input';
 import Button from '@/components/ui/Button/Button';
 const ForgotPassword = () => {
