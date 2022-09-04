@@ -2,11 +2,11 @@ import { Grid, IconButton, ListItem, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
-import Text from './Text/Text';
 import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Text from './ui/Text/Text';
 
 interface Props {
   listing: any;
