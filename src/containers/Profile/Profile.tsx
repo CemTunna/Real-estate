@@ -11,15 +11,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import firebaseAuth from '@/helpers/firebaseAuth';
 import useForm from '@/hooks/useForm';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '@/firebase';
 import BReListItem from '@/components/BReListItem';
 import useStyles from './ProfileStyles';
@@ -142,7 +134,7 @@ const Profile = () => {
         <Button className={classes.btn} onClick={handleLogout}>
           Log out <LogoutIcon style={{ marginLeft: '10px' }} />
         </Button>
-        {!loading && listings!.length > 0 && (
+        {/* {!loading && listings!.length > 0 && (
           <>
             <Text className={classes.text}>Listings:</Text>
             <List className={classes.list}>
@@ -159,7 +151,7 @@ const Profile = () => {
               ))}
             </List>
           </>
-        )}
+        )} */}
       </main>
     </Container>
   );
