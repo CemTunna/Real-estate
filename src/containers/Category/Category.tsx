@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   collection,
-  getDocs,
   query,
   where,
   orderBy,
   limit,
   startAfter,
-  getDoc,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { toast } from 'react-toastify';
@@ -16,90 +14,64 @@ import Subtitle from '@/components/Subtitle';
 import { List } from '@mui/material';
 import ReListItem from '@/components/BReListItem';
 import { Listing } from '@/interfaces/Listing';
-import { makeStyles } from 'tss-react/mui';
 import Container from '@/components/Container';
 import Loader from '@/components/Loader';
 import Text from '@/components/ui/Text/Text';
-interface ListingArray {
+import useStyles from './CategoryStyles';
+import getCollectionSnapshot from '@/helpers/database/getCollectionSnapshot';
+interface ListingState {
   data: Listing;
   id: string;
 }
 
-const useStyles = makeStyles()((theme) => ({
-  list: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  main: {
-    width: '100%',
-    height: '100%',
-    alignSelf: 'flex-start',
-  },
-  text: {
-    fontWeight: theme.typography.fontWeightBold,
-    margin: '2rem',
-  },
-}));
-
 const Category = () => {
   const { classes } = useStyles();
-
-  const params = useParams();
-  const [listing, setListing] = useState<ListingArray[] | null>(null);
+  const [listing, setListing] = useState<ListingState[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [lastFetchedListing, setLastFetchedListing] = useState<any>(null);
-  useEffect(() => {
-    const getList = async () => {
-      try {
-        const listRef = collection(db, 'listings');
-        const q = query(
-          listRef,
-          where('type', '==', params.categoryType),
-          orderBy('timestamp', 'desc'),
-          limit(10)
-        );
-        const querySnap = await getDocs(q);
-        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-        setLastFetchedListing(lastVisible);
-        let listings: any = [];
-        querySnap.forEach((doc) => {
-          return listings.push({
-            id: doc.id,
-            data: doc.data(),
-          });
-        });
 
-        setListing(listings);
+  const params = useParams();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snapshot = await getCollectionSnapshot(
+          query(
+            collection(db, 'listings'),
+            where('type', '==', params.categoryType),
+            orderBy('timestamp', 'desc'),
+            limit(10)
+          )
+        );
+
+        setLastFetchedListing(
+          snapshot.querySnap.docs[snapshot.querySnap.docs.length - 1]
+        );
+
+        setListing(snapshot.collection);
         setLoading(false);
       } catch (error) {
         toast.error("Couldn't get listings");
       }
-    };
-    getList();
+    })();
   }, [params.categoryType]);
-  console.log(listing);
-  const moreGetList = async () => {
-    try {
-      const listRef = collection(db, 'listings');
-      const q = query(
-        listRef,
-        where('type', '==', params.categoryType),
-        orderBy('timestamp', 'desc'),
-        startAfter(lastFetchedListing),
-        limit(10)
-      );
-      const querySnap = await getDocs(q);
-      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-      setLastFetchedListing(lastVisible);
-      let listings: any = [];
-      querySnap.forEach((doc) => {
-        return listings.push({
-          id: doc.id,
-          data: doc.data(),
-        });
-      });
 
-      setListing((prevState: any) => [...prevState, ...listings]);
+  const getMoreListing = async () => {
+    try {
+      const snapshot = await getCollectionSnapshot(
+        query(
+          collection(db, 'listings'),
+          where('type', '==', params.categoryType),
+          orderBy('timestamp', 'desc'),
+          startAfter(lastFetchedListing),
+          limit(10)
+        )
+      );
+      setLastFetchedListing(
+        snapshot.querySnap.docs[snapshot.querySnap.docs.length - 1]
+      );
+
+      setListing((prevState: any) => [...prevState, ...snapshot.collection]);
       setLoading(false);
     } catch (error) {
       toast.error("Couldn't get listings");
@@ -128,7 +100,7 @@ const Category = () => {
           </main>
           <br />
           <br />
-          {lastFetchedListing && <p onClick={moreGetList}>Load More</p>}
+          {lastFetchedListing && <p onClick={getMoreListing}>Load More</p>}
         </>
       ) : (
         <Text
