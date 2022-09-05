@@ -4,7 +4,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import firebaseAuth from './firebaseAuth';
+import firebaseAuth from './auth/firebaseAuth';
 import { v4 as uuid } from 'uuid';
 
 export const storeImages = async (image: any) => {

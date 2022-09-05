@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import firebaseAuth from '@/helpers/firebaseAuth';
+import firebaseAuth from '@/helpers/auth/firebaseAuth';
 import Loader from '@/components/Loader';
 import { Grid, TextareaAutosize } from '@mui/material';
 import Subtitle from '@/components/Subtitle';

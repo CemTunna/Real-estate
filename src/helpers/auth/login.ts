@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import firebaseAuth from '../firebaseAuth';
+import firebaseAuth from './firebaseAuth';
 
 interface LoginProps {
   email: string;

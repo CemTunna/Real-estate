@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Grid, Typography } from '@mui/material';
 import googleIcon from './googleIcon.svg';
 import Container from '@/components/Container';
-import googleAuth from '@/helpers/googleAuth';
+import googleAuth from '@/helpers/auth/googleAuth';
 import useStyles from './GoogleAuthStyles';
 import { toast } from 'react-toastify';
 const GoogleAuth = () => {

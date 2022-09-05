@@ -9,7 +9,7 @@ import Container from '@/components/Container';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import firebaseAuth from '@/helpers/firebaseAuth';
+import firebaseAuth from '@/helpers/auth/firebaseAuth';
 import useForm from '@/hooks/useForm';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '@/firebase';

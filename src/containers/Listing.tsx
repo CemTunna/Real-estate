@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDoc, doc } from 'firebase/firestore';
-import firebaseAuth from '@/helpers/firebaseAuth';
+import firebaseAuth from '@/helpers/auth/firebaseAuth';
 import { db } from '@/firebase';
 import ShareIcon from '@mui/icons-material/Share';
 import Loader from '@/components/Loader';

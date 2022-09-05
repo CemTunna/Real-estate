@@ -2,7 +2,7 @@ import { db } from '@/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import firebaseAuth from '../firebaseAuth';
+import firebaseAuth from './firebaseAuth';
 interface DataCopy {
   email: string;
   password?: string;
