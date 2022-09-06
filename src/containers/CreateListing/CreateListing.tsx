@@ -5,10 +5,6 @@ import firebaseAuth from '@/helpers/auth/firebaseAuth';
 import Loader from '@/components/Loader';
 import { Grid, TextareaAutosize } from '@mui/material';
 import Subtitle from '@/components/Subtitle';
-import BRealButton from '@/components/BRealButton';
-import BReFormLabel from '@/components/form/BReFormLabel';
-import BRealInput from '@/components/BRealInput';
-import { makeStyles } from 'tss-react/mui';
 import Container from '@/components/Container';
 import BedIcon from '@mui/icons-material/Bed';
 import BathroomIcon from '@mui/icons-material/Bathroom';
@@ -19,57 +15,15 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ImageIcon from '@mui/icons-material/Image';
-import BRealFormButton from '@/components/form/BRealFormButton';
 import classNames from 'classnames';
-import BRealFormContainer from '@/components/form/BRealFormContainer';
-import BRealFormInput from '@/components/form/BRealFormInput';
-import BRealFormSubContainer from '@/components/form/BRealFormSubContainer';
-import BReText from '@/components/BReText';
 import { storeImages } from '@/helpers/storeImages';
 import { toast } from 'react-toastify';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
-
-const useStyles = makeStyles()((theme) => ({
-  main: {
-    width: '100%',
-  },
-  label: {
-    marginTop: '1rem',
-    marginBottom: 0,
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  subFormContainer: {
-    margin: '1rem auto',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    marginBottom: '1rem',
-    border: '3px solid blue',
-  },
-  textArea: {
-    border: '1px solid #e74c0e',
-    outline: 'none',
-    padding: '0.375rem',
-    maxWidth: '20rem',
-  },
-  btn: {
-    width: '100%',
-  },
-  btnContainer: {
-    display: 'flex',
-  },
-  icon: {
-    fontSize: 'medium',
-  },
-}));
-
+import Form from '@/components/form/Form';
+import useStyles from './CreateListingStyles';
+import H3 from '@/components/ui/H3/H3';
+import Button from '@/components/ui/Button/Button';
 const CreateListing = () => {
   const { classes } = useStyles();
 
@@ -90,7 +44,7 @@ const CreateListing = () => {
   const [loading, setLoading] = useState(false);
   const { auth } = firebaseAuth();
   const navigate = useNavigate();
-  const mounted = useRef(true);
+  const isMounted = useRef(true);
   const {
     location,
     bathrooms,
@@ -106,7 +60,7 @@ const CreateListing = () => {
     userRef,
   } = formData;
   useEffect(() => {
-    if (mounted) {
+    if (isMounted) {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           setFormData({ ...formData, userRef: user.uid });
@@ -116,9 +70,9 @@ const CreateListing = () => {
       });
     }
     return () => {
-      mounted.current = false;
+      isMounted.current = false;
     };
-  }, [mounted]);
+  }, [isMounted]);
   if (loading) {
     return <Loader />;
   }
@@ -185,35 +139,35 @@ const CreateListing = () => {
         <Subtitle>Create a Listing </Subtitle>
       </header>
       <main className={classes.main}>
-        <form onSubmit={onSubmit} className={classes.form}>
+        <Form onSubmit={onSubmit}>
           <Grid className={classes.subFormContainer}>
-            <BReFormLabel>Sell - Rent</BReFormLabel>
+            <H3>Sell - Rent</H3>
             <Grid className={classes.btnContainer}>
-              <BRealFormButton
-                isActive={type === 'sale' ? true : false}
+              <Button
+                disabled={type === 'sale' ? true : false}
                 id='type'
                 value='sale'
                 onClick={onMutate}
               >
                 Sell
-              </BRealFormButton>
-              <BRealFormButton
-                isActive={type === 'rent' ? true : false}
+              </Button>
+              <Button
+                disabled={type === 'rent' ? true : false}
                 id='type'
                 value='rent'
                 onClick={onMutate}
               >
                 Rent
-              </BRealFormButton>
+              </Button>
             </Grid>
           </Grid>
-          <BRealFormContainer>
+          {/* <FormContainer>
             <Grid>
-              <BRealFormSubContainer>
-                <BReFormLabel className={classes.label} label='name'>
+              <FormSubContainer>
+                <FormLabel className={classes.label} label='name'>
                   Name
-                </BReFormLabel>
-                <BRealFormInput
+                </FormLabel>
+                <FormInput
                   className={classes.input}
                   type='text'
                   id='name'
@@ -223,12 +177,10 @@ const CreateListing = () => {
                   onChange={onMutate}
                   required={true}
                 />
-              </BRealFormSubContainer>
-              <BRealFormSubContainer
-                icon={<BedIcon className={classes.icon} />}
-              >
-                <BReFormLabel label='bedrooms'>Bedrooms</BReFormLabel>
-                <BRealFormInput
+              </FormSubContainer>
+              <FormSubContainer icon={<BedIcon className={classes.icon} />}>
+                <FormLabel label='bedrooms'>Bedrooms</FormLabel>
+                <FormInput
                   className={classes.input}
                   type='number'
                   id='bedrooms'
@@ -238,12 +190,12 @@ const CreateListing = () => {
                   max={50}
                   required
                 />
-              </BRealFormSubContainer>
-              <BRealFormSubContainer
+              </FormSubContainer>
+              <FormSubContainer
                 icon={<BathroomIcon className={classes.icon} />}
               >
-                <BReFormLabel label='bathrooms'>Bathrooms</BReFormLabel>
-                <BRealFormInput
+                <FormLabel label='bathrooms'>Bathrooms</FormLabel>
+                <FormInput
                   className={classes.input}
                   type='number'
                   id='bathrooms'
@@ -253,57 +205,55 @@ const CreateListing = () => {
                   max={50}
                   required
                 />
-              </BRealFormSubContainer>
+              </FormSubContainer>
 
-              <BRealFormSubContainer>
-                <BReFormLabel>Parking spot</BReFormLabel>
+              <FormSubContainer>
+                <FormLabel>Parking spot</FormLabel>
                 <Grid className={classes.btnContainer}>
-                  <BRealFormButton
+                  <FormButton
                     isActive={parking ? true : false}
                     id='parking'
                     value={true}
                     onClick={onMutate}
                   >
                     Yes
-                  </BRealFormButton>
-                  <BRealFormButton
+                  </FormButton>
+                  <FormButton
                     isActive={!parking && parking !== null ? true : false}
                     id='parking'
                     onClick={onMutate}
                     value={false}
                   >
                     No
-                  </BRealFormButton>
+                  </FormButton>
                 </Grid>
-              </BRealFormSubContainer>
+              </FormSubContainer>
 
-              <BRealFormSubContainer>
-                <BReFormLabel>Furnished</BReFormLabel>
+              <FormSubContainer>
+                <FormLabel>Furnished</FormLabel>
                 <Grid className={classes.btnContainer}>
-                  <BRealFormButton
+                  <FormButton
                     isActive={furnished ? true : false}
                     value={true}
                     id='furnished'
                     onClick={onMutate}
                   >
                     Yes
-                  </BRealFormButton>
-                  <BRealFormButton
+                  </FormButton>
+                  <FormButton
                     isActive={!furnished && furnished !== null ? true : false}
                     value={false}
                     id='furnished'
                     onClick={onMutate}
                   >
                     No
-                  </BRealFormButton>
+                  </FormButton>
                 </Grid>
-              </BRealFormSubContainer>
+              </FormSubContainer>
             </Grid>
             <Grid>
-              <BRealFormSubContainer
-                icon={<HomeIcon className={classes.icon} />}
-              >
-                <BReFormLabel label='location'>Address</BReFormLabel>
+              <FormSubContainer icon={<HomeIcon className={classes.icon} />}>
+                <FormLabel label='location'>Address</FormLabel>
 
                 <TextareaAutosize
                   className={classes.textArea}
@@ -314,35 +264,35 @@ const CreateListing = () => {
                   required
                   style={{ width: '21rem' }}
                 />
-              </BRealFormSubContainer>
+              </FormSubContainer>
 
-              <BRealFormSubContainer>
-                <BReFormLabel>Offer</BReFormLabel>
+              <FormSubContainer>
+                <FormLabel>Offer</FormLabel>
                 <Grid className={classes.btnContainer}>
-                  <BRealFormButton
+                  <FormButton
                     isActive={offer ? true : false}
                     id='offer'
                     value={true}
                     onClick={onMutate}
                   >
                     Yes
-                  </BRealFormButton>
-                  <BRealFormButton
+                  </FormButton>
+                  <FormButton
                     isActive={!offer && offer !== null ? true : false}
                     id='offer'
                     value={false}
                     onClick={onMutate}
                   >
                     No
-                  </BRealFormButton>
+                  </FormButton>
                 </Grid>
-              </BRealFormSubContainer>
-              <BRealFormSubContainer
+              </FormSubContainer>
+              <FormSubContainer
                 icon={<AttachMoneyIcon className={classes.icon} />}
               >
-                <BReFormLabel>Regular Price</BReFormLabel>
+                <FormLabel>Regular Price</FormLabel>
                 <Grid>
-                  <BRealFormInput
+                  <FormInput
                     type='number'
                     id='regularPrice'
                     value={regularPrice}
@@ -351,12 +301,12 @@ const CreateListing = () => {
                     max={750000000}
                     required
                   />
-                  {type === 'rent' && <BReText>$ / Month</BReText>}
+                  {type === 'rent' && <Text>$ / Month</Text>}
                 </Grid>
                 {offer && (
                   <>
-                    <BReFormLabel>Discounted Price</BReFormLabel>
-                    <BRealFormInput
+                    <FormLabel>Discounted Price</FormLabel>
+                    <FormInput
                       type='number'
                       id='discountedPrice'
                       value={discountedPrice}
@@ -367,15 +317,13 @@ const CreateListing = () => {
                     />
                   </>
                 )}
-              </BRealFormSubContainer>
+              </FormSubContainer>
               <Grid>
-                <BRealFormSubContainer
-                  icon={<ImageIcon className={classes.icon} />}
-                >
-                  <BReFormLabel>Images</BReFormLabel>
-                  <BReText>Max 6 images</BReText>
+                <FormSubContainer icon={<ImageIcon className={classes.icon} />}>
+                  <FormLabel>Images</FormLabel>
+                  <Text>Max 6 images</Text>
 
-                  <BRealFormInput
+                  <FormInput
                     type='file'
                     id='images'
                     onChange={onMutate}
@@ -383,14 +331,14 @@ const CreateListing = () => {
                     accept='.jpg,.png,.jpeg'
                     multiple={true}
                   />
-                </BRealFormSubContainer>
+                </FormSubContainer>
               </Grid>
-              <BRealButton className={classes.btn} type='submit'>
+              <Button className={classes.btn} type='submit'>
                 Create Listing
-              </BRealButton>
+              </Button>
             </Grid>
-          </BRealFormContainer>
-        </form>
+          </FormContainer> */}
+        </Form>
       </main>
     </Container>
   );

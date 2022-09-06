@@ -13,7 +13,9 @@ const Listing = React.lazy(() => import('@/containers/Listing'));
 const Edit = React.lazy(() => import('@/containers/Edit'));
 const Contact = React.lazy(() => import('@/containers/Contact'));
 const Profile = React.lazy(() => import('@/containers/Profile/Profile'));
-const CreateListing = React.lazy(() => import('@/containers/CreateListing'));
+const CreateListing = React.lazy(
+  () => import('@/containers/CreateListing/CreateListing')
+);
 interface AppRoutesTypes {
   path: string;
   Component: any;
