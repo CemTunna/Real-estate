@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from '@/components/PrivateRoute';
 const Explore = React.lazy(() => import('@/containers/Explore/Explore'));
-const Offers = React.lazy(() => import('@/containers/Offers'));
+const Offers = React.lazy(() => import('@/containers/Offers/Offers'));
 const Category = React.lazy(() => import('@/containers/Category/Category'));
 const Login = React.lazy(() => import('@/containers/Login/Login'));
 const Register = React.lazy(() => import('@/containers/Register/Register'));
