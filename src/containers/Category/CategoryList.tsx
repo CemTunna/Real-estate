@@ -1,14 +1,14 @@
 import React from 'react';
 import List from '@/components/ui/List/List';
 import CategoryListItem from './CategoryListItem';
-import Listings from './interface';
+import { Listings } from '@/interfaces/Listing';
 interface Props {
-  listings: Listings[];
+  houses: Listings[];
 }
-const CategoryList = ({ listings }: Props) => {
+const CategoryList = ({ houses }: Props) => {
   return (
     <List>
-      {listings.map((listing) => (
+      {houses.map((listing) => (
         <CategoryListItem listing={listing} key={listing.id} />
       ))}
     </List>

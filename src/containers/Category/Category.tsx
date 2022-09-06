@@ -17,13 +17,13 @@ import Text from '@/components/ui/Text/Text';
 import useStyles from './CategoryStyles';
 import getCollectionSnapshot from '@/helpers/database/getCollectionSnapshot';
 import CategoryList from './CategoryList';
-import Listings from './interface';
+import { Listings } from '@/interfaces/Listing';
 
 const Category = () => {
   const { classes } = useStyles();
-  const [listing, setListing] = useState<Listings[] | null>(null);
+  const [houses, setHouses] = useState<Listings[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [lastFetchedListing, setLastFetchedListing] = useState<any>(null);
+  const [lastFetchedListing, setLastFetchedListing] = useState<any>();
 
   const params = useParams();
 
@@ -43,7 +43,7 @@ const Category = () => {
           snapshot.querySnap.docs[snapshot.querySnap.docs.length - 1]
         );
 
-        setListing(snapshot.collection);
+        setHouses(snapshot.collection);
         setLoading(false);
       } catch (error) {
         toast.error("Couldn't get listings");
@@ -66,7 +66,7 @@ const Category = () => {
         snapshot.querySnap.docs[snapshot.querySnap.docs.length - 1]
       );
 
-      setListing((prevState: any) => [...prevState, ...snapshot.collection]);
+      setHouses((prevState: any) => [...prevState, ...snapshot.collection]);
       setLoading(false);
     } catch (error) {
       toast.error("Couldn't get listings");
@@ -84,10 +84,10 @@ const Category = () => {
       </header>
       {loading ? (
         <Loader />
-      ) : listing && listing.length > 0 ? (
+      ) : houses && houses.length > 0 ? (
         <>
           <main className={classes.main}>
-            <CategoryList listings={listing} />
+            <CategoryList houses={houses} />
           </main>
           <br />
           <br />

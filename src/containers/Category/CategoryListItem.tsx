@@ -1,18 +1,20 @@
 import React from 'react';
 import ListItem from '@/components/ui/List/ListItem';
-import Listings from './interface';
 import useStyles from './CategoryListItemStyles';
-import { Grid } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import Text from '@/components/ui/Text/Text';
 import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
+import { Listings } from '@/interfaces/Listing';
 interface Props {
   listing: Listings;
+  onDelete?: () => void;
+  onEdit?: (e: string) => void;
 }
-const CategoryListItem = ({ listing }: Props) => {
+const CategoryListItem = ({ onDelete, onEdit, listing }: Props) => {
   const {
     data: {
       bathrooms,
@@ -68,18 +70,18 @@ const CategoryListItem = ({ listing }: Props) => {
           </Grid>
         </Grid>
       </Link>
-      {/* <Grid style={{ display: 'flex' }}>
+      <Grid style={{ display: 'flex' }}>
         {onDelete && (
           <IconButton onClick={onDelete}>
             <DeleteIcon style={{ color: 'red' }} />
           </IconButton>
         )}
         {onEdit && (
-          <IconButton onClick={() => onEdit(id)}>
+          <IconButton onClick={() => onEdit(id!)}>
             <EditIcon />
           </IconButton>
         )}
-      </Grid> */}
+      </Grid>
     </ListItem>
   );
 };
