@@ -11,22 +11,17 @@ import {
 import { db } from '@/firebase';
 import { toast } from 'react-toastify';
 import Subtitle from '@/components/Subtitle';
-import { List } from '@mui/material';
-import ReListItem from '@/components/BReListItem';
-import { Listing } from '@/interfaces/Listing';
 import Container from '@/components/Container';
 import Loader from '@/components/Loader';
 import Text from '@/components/ui/Text/Text';
 import useStyles from './CategoryStyles';
 import getCollectionSnapshot from '@/helpers/database/getCollectionSnapshot';
-interface ListingState {
-  data: Listing;
-  id: string;
-}
+import CategoryList from './CategoryList';
+import Listings from './interface';
 
 const Category = () => {
   const { classes } = useStyles();
-  const [listing, setListing] = useState<ListingState[] | null>(null);
+  const [listing, setListing] = useState<Listings[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [lastFetchedListing, setLastFetchedListing] = useState<any>(null);
 
@@ -92,11 +87,7 @@ const Category = () => {
       ) : listing && listing.length > 0 ? (
         <>
           <main className={classes.main}>
-            <List className={classes.list}>
-              {listing.map((item) => (
-                <ReListItem listing={item.data} id={item.id} key={item.id} />
-              ))}
-            </List>
+            <CategoryList listings={listing} />
           </main>
           <br />
           <br />
