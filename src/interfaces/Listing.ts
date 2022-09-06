@@ -11,12 +11,9 @@ export interface Listing {
   regularPrice: string;
   type: string;
   timestamp: any;
-  id?: string;
   userRef: string;
 }
 export interface Listings {
-  listings: {
-    id: string;
-    data: Listing;
-  }[];
+  id: string;
+  data: Listing;
 }
