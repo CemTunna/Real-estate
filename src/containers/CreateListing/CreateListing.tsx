@@ -149,20 +149,18 @@ const CreateListing = () => {
             <H4 className={classes.subTitle}>Sell - Rent</H4>
             <Grid className={classes.btnContainer}>
               <Button
-                disabled={type === 'sale' ? true : false}
                 id='type'
                 value='sale'
                 onClick={onMutate}
-                className={classes.btn}
+                className={type === 'sale' ? classes.activeBtn : classes.btn}
               >
                 Sell
               </Button>
               <Button
-                disabled={type === 'rent' ? true : false}
                 id='type'
                 value='rent'
                 onClick={onMutate}
-                className={classes.btn}
+                className={type === 'rent' ? classes.activeBtn : classes.btn}
               >
                 Rent
               </Button>
@@ -214,20 +212,18 @@ const CreateListing = () => {
               </FormLabel>
               <Grid style={{ display: 'flex' }}>
                 <Button
-                  isActive={parking ? true : false}
                   id='parking'
                   value={true}
                   onClick={onMutate}
-                  className={classes.btn}
+                  className={parking ? classes.activeBtn : classes.btn}
                 >
                   Yes
                 </Button>
                 <Button
-                  isActive={!parking && parking !== null ? true : false}
                   id='parking'
                   onClick={onMutate}
                   value={false}
-                  className={classes.btn}
+                  className={!parking ? classes.activeBtn : classes.btn}
                 >
                   No
                 </Button>
@@ -238,8 +234,7 @@ const CreateListing = () => {
               </FormLabel>
               <Grid style={{ display: 'flex' }}>
                 <Button
-                  className={classes.btn}
-                  isActive={furnished ? true : false}
+                  className={furnished ? classes.activeBtn : classes.btn}
                   value={true}
                   id='furnished'
                   onClick={onMutate}
@@ -247,8 +242,7 @@ const CreateListing = () => {
                   Yes
                 </Button>
                 <Button
-                  className={classes.btn}
-                  isActive={!furnished && furnished !== null ? true : false}
+                  className={!furnished ? classes.activeBtn : classes.btn}
                   value={false}
                   id='furnished'
                   onClick={onMutate}
@@ -277,20 +271,18 @@ const CreateListing = () => {
               </FormLabel>
               <Grid style={{ display: 'flex' }}>
                 <Button
-                  isActive={offer ? true : false}
                   id='offer'
                   value={true}
                   onClick={onMutate}
-                  className={classes.btn}
+                  className={offer ? classes.activeBtn : classes.btn}
                 >
                   Yes
                 </Button>
                 <Button
-                  isActive={!offer && offer !== null ? true : false}
                   id='offer'
                   value={false}
                   onClick={onMutate}
-                  className={classes.btn}
+                  className={!offer ? classes.activeBtn : classes.btn}
                 >
                   No
                 </Button>

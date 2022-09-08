@@ -34,10 +34,21 @@ const useStyles = makeStyles()((theme) => ({
   },
   btn: {
     flex: 1,
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.primary.dark,
     color: theme.palette.primary.light,
     margin: '0.5rem',
   },
+  activeBtn: {
+    flex: 1,
+    backgroundColor: theme.palette.secondary.dark,
+    color: theme.palette.primary.light,
+    margin: '0.5rem',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+      color: theme.palette.primary.light,
+    },
+  },
+
   approveBtn: {
     flex: 1,
     backgroundColor: theme.palette.secondary.main,
