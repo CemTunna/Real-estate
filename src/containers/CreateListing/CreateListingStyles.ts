@@ -7,32 +7,55 @@ const useStyles = makeStyles()((theme) => ({
   label: {
     marginTop: '1rem',
     marginBottom: 0,
+    color: theme.palette.primary.dark,
   },
   subFormContainer: {
-    margin: '1rem auto',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  subTitle: {
+    color: theme.palette.secondary.dark,
+  },
+
+  btnContainer: {
+    display: 'flex',
+    width: '50%',
+  },
   input: {
-    marginBottom: '1rem',
-    border: '3px solid blue',
+    flex: 1,
   },
   textArea: {
     border: '1px solid #e74c0e',
     outline: 'none',
-    padding: '0.375rem',
-    maxWidth: '20rem',
+    padding: '1rem',
+    flex: 1,
   },
   btn: {
-    width: '100%',
+    flex: 1,
+    backgroundColor: theme.palette.secondary.dark,
+    color: theme.palette.primary.light,
+    margin: '0.5rem',
   },
-  btnContainer: {
-    display: 'flex',
+  approveBtn: {
+    flex: 1,
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.primary.light,
+    margin: '0.5rem',
   },
   icon: {
     fontSize: 'medium',
+  },
+  bodyContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  subBodyContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '1rem',
+    flex: 1,
   },
 }));
 export default useStyles;
