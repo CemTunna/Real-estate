@@ -10,6 +10,7 @@ const Button = ({ className, ...rest }: Props) => {
   const { classes } = useStyles();
   return (
     <MuiButton
+      variant='contained'
       className={!className ? classes.btn : classNames(className, classes.btn)}
       {...rest}
     />
