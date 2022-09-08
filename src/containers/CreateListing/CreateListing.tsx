@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import firebaseAuth from '@/helpers/auth/firebaseAuth';
 import Loader from '@/components/Loader';
 import { Grid, TextareaAutosize } from '@mui/material';
-import Subtitle from '@/components/Subtitle';
 import Container from '@/components/Container';
 import BedIcon from '@mui/icons-material/Bed';
 import BathroomIcon from '@mui/icons-material/Bathroom';
@@ -23,7 +22,11 @@ import { db } from '@/firebase';
 import Form from '@/components/form/Form';
 import useStyles from './CreateListingStyles';
 import H3 from '@/components/ui/H3/H3';
+import H4 from '@/components/ui/H4/H4';
 import Button from '@/components/ui/Button/Button';
+import FormLabel from '@/components/form/FormLabel';
+import Input from '@/components/ui/Input/Input';
+import Text from '@/components/ui/Text/Text';
 const CreateListing = () => {
   const { classes } = useStyles();
 
@@ -41,6 +44,8 @@ const CreateListing = () => {
     images: {},
     userRef: '',
   });
+  console.log('formData: ', formData);
+
   const [loading, setLoading] = useState(false);
   const { auth } = firebaseAuth();
   const navigate = useNavigate();
@@ -136,18 +141,19 @@ const CreateListing = () => {
   return (
     <Container>
       <header>
-        <Subtitle>Create a Listing </Subtitle>
+        <H3>Create a Listing </H3>
       </header>
       <main className={classes.main}>
         <Form onSubmit={onSubmit}>
           <Grid className={classes.subFormContainer}>
-            <H3>Sell - Rent</H3>
+            <H4 className={classes.subTitle}>Sell - Rent</H4>
             <Grid className={classes.btnContainer}>
               <Button
                 disabled={type === 'sale' ? true : false}
                 id='type'
                 value='sale'
                 onClick={onMutate}
+                className={classes.btn}
               >
                 Sell
               </Button>
@@ -156,188 +162,194 @@ const CreateListing = () => {
                 id='type'
                 value='rent'
                 onClick={onMutate}
+                className={classes.btn}
               >
                 Rent
               </Button>
             </Grid>
           </Grid>
-          {/* <FormContainer>
-            <Grid>
-              <FormSubContainer>
-                <FormLabel className={classes.label} label='name'>
-                  Name
-                </FormLabel>
-                <FormInput
-                  className={classes.input}
-                  type='text'
-                  id='name'
-                  value={name}
-                  maxLength={32}
-                  minLength={10}
-                  onChange={onMutate}
-                  required={true}
-                />
-              </FormSubContainer>
-              <FormSubContainer icon={<BedIcon className={classes.icon} />}>
-                <FormLabel label='bedrooms'>Bedrooms</FormLabel>
-                <FormInput
-                  className={classes.input}
-                  type='number'
-                  id='bedrooms'
-                  value={bedrooms}
-                  onChange={onMutate}
-                  min={1}
-                  max={50}
-                  required
-                />
-              </FormSubContainer>
-              <FormSubContainer
-                icon={<BathroomIcon className={classes.icon} />}
-              >
-                <FormLabel label='bathrooms'>Bathrooms</FormLabel>
-                <FormInput
-                  className={classes.input}
-                  type='number'
-                  id='bathrooms'
-                  value={bathrooms}
-                  onChange={onMutate}
-                  min={1}
-                  max={50}
-                  required
-                />
-              </FormSubContainer>
+          <Grid className={classes.bodyContainer}>
+            <Grid className={classes.subBodyContainer}>
+              <FormLabel className={classes.label} label='name'>
+                Name
+              </FormLabel>
+              <Input
+                className={classes.input}
+                type='text'
+                id='name'
+                value={name}
+                maxLength={32}
+                minLength={10}
+                onChange={onMutate}
+                required={true}
+              />
+              <FormLabel className={classes.label} label='bedrooms'>
+                Bedrooms
+              </FormLabel>
+              <Input
+                className={classes.input}
+                type='number'
+                id='bedrooms'
+                value={bedrooms}
+                onChange={onMutate}
+                min={1}
+                max={50}
+                required
+              />
+              <FormLabel className={classes.label} label='bathrooms'>
+                Bathrooms
+              </FormLabel>
+              <Input
+                className={classes.input}
+                type='number'
+                id='bathrooms'
+                value={bathrooms}
+                onChange={onMutate}
+                min={1}
+                max={50}
+                required
+              />
+              <FormLabel className={classes.label} label='parking'>
+                Parking spot
+              </FormLabel>
+              <Grid style={{ display: 'flex' }}>
+                <Button
+                  isActive={parking ? true : false}
+                  id='parking'
+                  value={true}
+                  onClick={onMutate}
+                  className={classes.btn}
+                >
+                  Yes
+                </Button>
+                <Button
+                  isActive={!parking && parking !== null ? true : false}
+                  id='parking'
+                  onClick={onMutate}
+                  value={false}
+                  className={classes.btn}
+                >
+                  No
+                </Button>
+              </Grid>
 
-              <FormSubContainer>
-                <FormLabel>Parking spot</FormLabel>
-                <Grid className={classes.btnContainer}>
-                  <FormButton
-                    isActive={parking ? true : false}
-                    id='parking'
-                    value={true}
-                    onClick={onMutate}
-                  >
-                    Yes
-                  </FormButton>
-                  <FormButton
-                    isActive={!parking && parking !== null ? true : false}
-                    id='parking'
-                    onClick={onMutate}
-                    value={false}
-                  >
-                    No
-                  </FormButton>
-                </Grid>
-              </FormSubContainer>
-
-              <FormSubContainer>
-                <FormLabel>Furnished</FormLabel>
-                <Grid className={classes.btnContainer}>
-                  <FormButton
-                    isActive={furnished ? true : false}
-                    value={true}
-                    id='furnished'
-                    onClick={onMutate}
-                  >
-                    Yes
-                  </FormButton>
-                  <FormButton
-                    isActive={!furnished && furnished !== null ? true : false}
-                    value={false}
-                    id='furnished'
-                    onClick={onMutate}
-                  >
-                    No
-                  </FormButton>
-                </Grid>
-              </FormSubContainer>
+              <FormLabel className={classes.label} label='furnished'>
+                Furnished
+              </FormLabel>
+              <Grid style={{ display: 'flex' }}>
+                <Button
+                  className={classes.btn}
+                  isActive={furnished ? true : false}
+                  value={true}
+                  id='furnished'
+                  onClick={onMutate}
+                >
+                  Yes
+                </Button>
+                <Button
+                  className={classes.btn}
+                  isActive={!furnished && furnished !== null ? true : false}
+                  value={false}
+                  id='furnished'
+                  onClick={onMutate}
+                >
+                  No
+                </Button>
+              </Grid>
             </Grid>
-            <Grid>
-              <FormSubContainer icon={<HomeIcon className={classes.icon} />}>
-                <FormLabel label='location'>Address</FormLabel>
 
-                <TextareaAutosize
-                  className={classes.textArea}
-                  maxRows={4}
-                  id='location'
-                  value={location}
-                  onChange={onMutate}
-                  required
-                  style={{ width: '21rem' }}
-                />
-              </FormSubContainer>
+            <Grid className={classes.subBodyContainer}>
+              <FormLabel className={classes.label} label='location'>
+                Address
+              </FormLabel>
+              <TextareaAutosize
+                className={classes.textArea}
+                maxRows={4}
+                id='location'
+                value={location}
+                onChange={onMutate}
+                required
+                style={{ width: '21rem' }}
+              />
 
-              <FormSubContainer>
-                <FormLabel>Offer</FormLabel>
-                <Grid className={classes.btnContainer}>
-                  <FormButton
-                    isActive={offer ? true : false}
-                    id='offer'
-                    value={true}
-                    onClick={onMutate}
-                  >
-                    Yes
-                  </FormButton>
-                  <FormButton
-                    isActive={!offer && offer !== null ? true : false}
-                    id='offer'
-                    value={false}
-                    onClick={onMutate}
-                  >
-                    No
-                  </FormButton>
-                </Grid>
-              </FormSubContainer>
-              <FormSubContainer
-                icon={<AttachMoneyIcon className={classes.icon} />}
-              >
-                <FormLabel>Regular Price</FormLabel>
-                <Grid>
-                  <FormInput
+              <FormLabel className={classes.label} label='offer'>
+                Offer
+              </FormLabel>
+              <Grid style={{ display: 'flex' }}>
+                <Button
+                  isActive={offer ? true : false}
+                  id='offer'
+                  value={true}
+                  onClick={onMutate}
+                  className={classes.btn}
+                >
+                  Yes
+                </Button>
+                <Button
+                  isActive={!offer && offer !== null ? true : false}
+                  id='offer'
+                  value={false}
+                  onClick={onMutate}
+                  className={classes.btn}
+                >
+                  No
+                </Button>
+              </Grid>
+
+              <FormLabel className={classes.label} label='regularPrice'>
+                Regular Price
+              </FormLabel>
+              {type === 'rent' && <Text>$ / Month</Text>}
+              <Input
+                type='number'
+                id='regularPrice'
+                value={regularPrice}
+                onChange={onMutate}
+                min={50}
+                max={750000000}
+                required
+              />
+
+              {offer && (
+                <>
+                  <FormLabel className={classes.label} label='discountedPrice'>
+                    Discounted Price
+                  </FormLabel>
+                  <Input
                     type='number'
-                    id='regularPrice'
-                    value={regularPrice}
+                    id='discountedPrice'
+                    value={discountedPrice}
                     onChange={onMutate}
                     min={50}
                     max={750000000}
-                    required
+                    required={offer}
                   />
-                  {type === 'rent' && <Text>$ / Month</Text>}
-                </Grid>
-                {offer && (
-                  <>
-                    <FormLabel>Discounted Price</FormLabel>
-                    <FormInput
-                      type='number'
-                      id='discountedPrice'
-                      value={discountedPrice}
-                      onChange={onMutate}
-                      min={50}
-                      max={750000000}
-                      required={offer}
-                    />
-                  </>
-                )}
-              </FormSubContainer>
-              <Grid>
-                <FormSubContainer icon={<ImageIcon className={classes.icon} />}>
-                  <FormLabel>Images</FormLabel>
-                  <Text>Max 6 images</Text>
-
-                  <FormInput
-                    type='file'
-                    id='images'
-                    onChange={onMutate}
-                    max={6}
-                    accept='.jpg,.png,.jpeg'
-                    multiple={true}
-                  />
-                </FormSubContainer>
+                </>
+              )}
+              <Grid
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <FormLabel className={classes.label} label='images'>
+                  Images
+                </FormLabel>
+                <Text>Max 6 images</Text>
+                <Input
+                  type='file'
+                  id='images'
+                  onChange={onMutate}
+                  max={6}
+                  accept='.jpg,.png,.jpeg'
+                  multiple={true}
+                />
               </Grid>
-              <Button className={classes.btn} type='submit'>
+              <Button className={classes.approveBtn} type='submit'>
                 Create Listing
               </Button>
             </Grid>
-          </FormContainer> */}
+          </Grid>
         </Form>
       </main>
     </Container>
