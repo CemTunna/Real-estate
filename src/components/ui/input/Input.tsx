@@ -13,6 +13,12 @@ const Input = ({
   autoFocus = false,
   required = false,
   disabled = false,
+  maxLength = 20,
+  minLength = 0,
+  min = 0,
+  max = 100,
+  accept = '',
+  multiple = false,
 }: InputProps) => {
   const { classes } = useStyles();
   return (
@@ -21,6 +27,14 @@ const Input = ({
       required={required}
       autoFocus={autoFocus}
       variant='standard'
+      inputProps={{
+        maxLength,
+        minLength,
+        min,
+        max,
+        accept,
+        multiple,
+      }}
       InputProps={{
         disableUnderline: true,
         ...propss,

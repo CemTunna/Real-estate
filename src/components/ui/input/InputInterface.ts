@@ -1,6 +1,6 @@
 interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value?: string | number;
   placeholder?: string;
   type: string;
   id: string;
@@ -9,5 +9,11 @@ interface InputProps {
   autoFocus?: boolean;
   required?: boolean;
   disabled?: boolean;
+  maxLength?: number;
+  minLength?: number;
+  min?: number;
+  max?: number;
+  accept?: string;
+  multiple?: boolean;
 }
 export default InputProps;
